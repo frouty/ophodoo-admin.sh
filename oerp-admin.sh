@@ -18,7 +18,7 @@
 # oe-admin install staging
 # oe-admin start staging --xmlrpc-port=8080 &
 # oe-admin start development --xmlrpc-port=8080 --debug
-#
+# Original Author: Daniel Reis, 2013
 ################################################################################
 #  Copyright 2013 Nicholas <nicholas.riegel@gmail.com>
 #  
@@ -85,9 +85,9 @@ install)
 
 	echo "* Create postgres user"
 	echo "A new PostgreSQL user, openerp-"$INSTANCE" will be created."
-	#read -s instance_pass
+	echo "Enter the network port for this instance (i.e. 8070, 8071, etc):" 
+	read instance_port
 	sudo su -c "createuser -e --createdb --no-createrole --no-superuser openerp-$INSTANCE" postgres	
-	#sudo su -c "createuser --createdb --no-createrole --no-superuser --pwprompt openerp-$INSTANCE" postgres
 	if [ -d $OEADMIN_HOME/$INSTANCE/server ] ; then
 		echo "* Server directory exists: skipping"
 	else
@@ -111,8 +111,10 @@ install)
 	cp $OEADMIN_HOME/$INSTANCE/server/install/openerp-server.conf $OEADMIN_HOME/$INSTANCE --backup=numbered
 	sed -i s/"db_user = .*"/"db_user = openerp-$INSTANCE"/g $OEADMIN_HOME/$INSTANCE/openerp-server.conf
 	#sed -i s/"db_password = .*"/"db_password = $instance_pass"/g $OEADMIN_HOME/$INSTANCE/openerp-server.conf
-	echo "xmlrpc_port = 8070" >> $OEADMIN_HOME/$INSTANCE/openerp-server.conf
+	echo "xmlrpc_port = $instance_port" >> $OEADMIN_HOME/$INSTANCE/openerp-server.conf
 	echo "logfile = /var/log/openerp/openerp-$INSTANCE.log" >> $OEADMIN_HOME/$INSTANCE/openerp-server.conf
+	
+	#
 	#echo "addons_path=/opt/openerp/$INSTANCE/addons,/opt/openerp/$INSTANCE/web/addons" >> $OEADMIN_HOME/$INSTANCE/openerp-server.conf
 	echo "#!/bin/sh
 sudo -u $OEADMIN_USER $OEADMIN_HOME/$INSTANCE/server/openerp-server --config=$OEADMIN_HOME/$INSTANCE/openerp-server.conf \$*
