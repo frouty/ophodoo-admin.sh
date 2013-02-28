@@ -17,9 +17,9 @@
 #  MA 02110-1301, USA.
 ################################################################################
 ################################################################################
-# A one-line command for copying OpenERP 7.0 server testing instances to 
-# a production instance. This will retain the settings on production instance
-# that is being replaced.
+# A one-line command for copying OpenERP 7.0 server testing folders to 
+# production folders. This will just copy the files into the production folder
+# and should retain most setting by not overwriting any configuration files.
 #-------------------------------------------------------------------------------
 # USAGE:
 #
@@ -40,7 +40,7 @@ backup=/backup/$3$now.tar.7z
 #Make this script available anywhere:
 #sudo ln -sf /usr/local/bin $0
 
-#Testing
+# Script Testing
 #echo $0
 #echo $1
 #echo $2
