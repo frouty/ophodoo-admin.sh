@@ -18,7 +18,7 @@
 # oe-admin install staging
 # oe-admin start staging --xmlrpc-port=8080 &
 # oe-admin start development --xmlrpc-port=8080 --debug
-#
+# Original Author: Daniel Reis, 2013 http://openerpmanagementsystem.blogger.com/
 ################################################################################
 #  Copyright 2013 Nicholas <nicholas.riegel@gmail.com>
 #  
