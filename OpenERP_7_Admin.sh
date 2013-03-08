@@ -40,7 +40,7 @@
 #fixed parameters:
 OEADMIN_USER="openerp"
 OEADMIN_HOME="/opt/openerp"
-
+now=$(date +"%Y_%m_%d")
 case "$1" in
 install)
 	#--------------------------------------------------
@@ -102,6 +102,7 @@ install)
 		echo -e "* Install files"
 		mkdir -p $OEADMIN_HOME/$INSTANCE/server
 		mv $OEADMIN_HOME/downloads/tmp/`ls $OEADMIN_HOME/downloads/tmp/`/* $OEADMIN_HOME/$INSTANCE/server
+		mv $OEADMIN_HOME/downloads/openerp-7.0-latest.tar.gz $OEADMIN_HOME/downloads/openerp-7.0-latest.tar.gz.$now
 		#bzr co lp:openerp-web/7.0 $OEADMIN_HOME/$INSTANCE/web
 		#bzr co lp:openobject-server/7.0 $OEADMIN_HOME/$INSTANCE/server
 		#bzr co lp:openobject-addons/7.0 $OEADMIN_HOME/$INSTANCE/addons
