@@ -2,6 +2,13 @@
 ################################################################################
 # A one-line installation for OpenERP 7.0 server instances
 #-------------------------------------------------------------------------------
+# FIRST CLONE THIS REPOSITORY
+# git clone git@github.com:frouty/ophodoo.git
+#
+# cd ~/odoooph-admin
+# run as local user
+#
+#
 # USAGE:
 #
 # * Setup openerp server and create a first OpenERP7 7 instance
@@ -13,6 +20,11 @@
 # * Start one OpenERP instance (to the terminal)
 # 	oo7-admin start [name2] [server options]
 #
+# After install:
+# need the libreoffice.sh
+# need the odoo-server init.d file
+# need the odoo-server.conf in /etc/
+
 # EXAMPLE:
 # oo7-admin install development --full
 # oo7-admin install staging
@@ -43,6 +55,7 @@ OO_USER="openerp"
 OO_HOME="/opt/openerp"
 HOMEDIR=${HOME}
 GIT=`which git`
+GITCLONE=''
 GITHUB-SCRIPTS="git@github.com:frouty/git-scripts.git"
 GITSCRIPTS='git-scripts'
 GITSCRIPTSDEST=$HOMEDIR/$GITSCRIPTS
@@ -57,9 +70,7 @@ install)
 	if [ "$3" = "--full" ] ; then
 		#Make this script available anywhere:
 		#sudo ln -sf /usr/local/bin $0
-		echo -e "\n----Install scripts----"
-		yes | GIT clone $GITHUB-SCRIPTS $HOMEDIR/$GITSCRIPTS
-		
+				
 		echo -e "\n---- Install PostgreSQL ----"
 		sudo apt-get install postgresql
 		
@@ -72,7 +83,7 @@ install)
 		python-mock python-openid python-psycopg2 python-psutil python-pybabel \
 		python-pychart python-pydot python-pyparsing python-reportlab python-simplejson \
 		python-tz python-unittest2 python-vatnumber python-vobject python-webdav \
-		python-werkzeug python-xlwt python-yaml python-zsi
+		python-werkzeug python-xlwt python-yaml python-zsi python2.7-arrow
 		
 		echo -e "\n---- Install python libraries ----"
 		sudo pip install gdata
