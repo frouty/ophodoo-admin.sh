@@ -47,3 +47,9 @@ pour avoir des infos sur la connection : \conninfo
 Comment faire un dump sur le server?
 lof$ pg_dump -Fc goeen001 > test.dump ne marche pas.
 par contre sur la machine de dev pas de souci
+
+sur le dev psql -U lfs -h 127.0.0.1 -d devaout -W avec le password = password linux ca marche.
+si je mets dans pg_hba.conf
+host    all             openerp             127.0.0.1/32            trust
+si je mets md5 ca ne marche pas.
+JE NE SAIS PAS COMMENT FAIRE UN DUMP SUR LE SERVER.
