@@ -15,14 +15,14 @@ oerp-admin.sh
  
 Au depart on ne peut pas se connecter à postgresql avec l'utilisateur postgres.
 
-1. donner un password à postgres
+1* donner un password à postgres
 ```
 $su
 #su postgres
 $psql
 postgres=#\password postgres
 ```
-2. editer le pg_hba.conf
+2* editer le pg_hba.conf
 
 ------
 
@@ -36,17 +36,18 @@ $su
 Mais on aimerait bien pouvoir se connecter en tant qu'utilisateur linux habituel. Il y a plusieurs facon de faire. 
 Pour permettre à des utilisateurs locaux d'accéder à la base de donnée il faut éditer /etc/postgresql/pg_hba.conf
 Mais une fois qu'on a autorisé les users à entrer dans la database ils doivent aussi exiter dans la database pour pouvoir se connecter.
+```
 #su postgres
 #createuser unnomdeuser
-
-Postgres utilise les role pour les authentifacation et autorisation. Postgres apres installation utilise "ident" pour
+```
+Postgres utilise les roles pour les authentifacation et autorisation. Postgres apres installation utilise "ident" pour
 l'indentification c'est à dire que le mot de passe est le meme que celui de linux.
 
-pour connaitre la liste des roles: \du
-pour connaiter la liste des tables: \dt
-pour connaitre la liste des database: \l
-pour se connecter à une autre database: \c 
-pour avoir des infos sur la connection : \conninfo
+*pour connaitre la liste des roles: \du
+*pour connaiter la liste des tables: \dt
+*pour connaitre la liste des database: \l
+*pour se connecter à une autre database: \c 
+*pour avoir des infos sur la connection : \conninfo
 
 
 Comment faire un dump sur le server?
