@@ -43,11 +43,11 @@ Mais une fois qu'on a autorisé les users à entrer dans la database ils doivent
 Postgres utilise les roles pour les authentifacation et autorisation. Postgres apres installation utilise "ident" pour
 l'indentification c'est à dire que le mot de passe est le meme que celui de linux.
 
-*pour connaitre la liste des roles: \\du
-*pour connaiter la liste des tables: \dt
-*pour connaitre la liste des database: \l
-*pour se connecter à une autre database: \c 
-*pour avoir des infos sur la connection : \conninfo
+* pour connaitre la liste des roles: \\du
+* pour connaiter la liste des tables: \dt
+* pour connaitre la liste des database: \l
+* pour se connecter à une autre database: \c 
+* pour avoir des infos sur la connection : \conninfo
 
 
 Comment faire un dump sur le server?
