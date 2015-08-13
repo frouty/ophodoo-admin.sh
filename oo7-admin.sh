@@ -41,6 +41,13 @@
 #fixed parameters:
 OO_USER="openerp"
 OO_HOME="/opt/openerp"
+HOMEDIR=${HOME}
+GIT=`which git`
+GITHUB-SCRIPTS="git@github.com:frouty/git-scripts.git"
+GITSCRIPTS='git-scripts'
+GITSCRIPTSDEST=$HOMEDIR/$GITSCRIPTS
+GITHUB-ODOO='git@github.com:frouty/odoogoeen.git'
+GITODOO='odoogoeen'
 
 case "$1" in
 install)
@@ -50,6 +57,9 @@ install)
 	if [ "$3" = "--full" ] ; then
 		#Make this script available anywhere:
 		#sudo ln -sf /usr/local/bin $0
+		echo -e "\n----Install scripts----"
+		yes | GIT clone $GITHUB-SCRIPTS $HOMEDIR/$GITSCRIPTS
+		
 		echo -e "\n---- Install PostgreSQL ----"
 		sudo apt-get install postgresql
 		
@@ -73,6 +83,10 @@ install)
 		sudo chown $OO_USER:$OO_USER /var/log/$OO_USER
 		sudo mkdir -p $OO_HOME/$OO_USER
 		sudo chown $OO_USER:$OO_USER $OO_HOME/$OO_USER
+		
+		echo -e "\n clone the odoo server"
+		yes | GIT clone $GITHUB-ODOO $HOMEDIR/$GITODOO
+		
 	fi
 	
 	#--------------------------------------------------
@@ -86,7 +100,7 @@ install)
 
 	echo "* Create postgres user"
 	echo "A new PostgreSQL user, openerp-"$INSTANCE" will be created."
-	echo "Enter the network port for this instance (i.e. 8070, 8071, etc):" 
+	echo "Enter the network port for this instance (i.e. 8070, 8071, etc):" $HOMEDIR
 	read instance_port
 	sudo su -c "createuser -e --createdb --no-createrole --no-superuser openerp-$INSTANCE" postgres	
 	if [ -d $OO_HOME/$INSTANCE/server ] ; then

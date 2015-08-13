@@ -77,8 +77,8 @@ tree -sh $bckfile
 
  
 ###suppression des sauvegardes trop anciennes.
-## FIND='$(which find)'
-## RM='$(which rm)'
+## FIND=`which find`
+## RM=`which rm`
 ## days_rotation=14
 ## $FIND $LPATH -mtime +$days_rotation -exec $RM () -f \;
 ## synchronisation avec le FTP:
