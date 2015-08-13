@@ -7,11 +7,9 @@
 # derniere MAJ : 2013-11-25                                                          #
 # modifié le : 22/07/2015 
 # par laurent FRANCOIS                                                               #
-# Le script effectue une sauvegarde complète des fichiers OpenERP                    #
-# et du fichier de configuration du serveur openerp-server.conf                      #
-# ainsi que de la base de données au format TAR                                      #
+# Script: dump on the server of the database: dbname                                  #
 #                                                                                    #
-# Sauvegarde en local dans le répertoire de l'utilisateur openerp                    #
+# Sauvegarde sur le serveur                   #
 #                                                                                    #
 # Script à mettre en CHMOD : 0755                                                    #
 # Et à exécuter en 'root'                                                            #
@@ -22,7 +20,7 @@
 #   Placer le fichier dans le répertoire /root                                       #
 #   Ouvrir une invite de commande et entrer                                          #
 #       cd /root                                                                     #
-#       bash ./backup-all-odoo.sh                                                   #
+#       bash ./backup-all-oo.sh                                                   #
 #                                                                                    #      
 #////////////////////////////////////////////////////////////////////////////////////#
 
@@ -90,8 +88,7 @@ tree -sh $bckfile
 ## lftp_target='repertoire de dstination sur le ftp'
 
 
-## pg_dump -Fc goeen001 > goeen001.bck.dump
-
+## RESTAURATION ##
 ## to drop the database and recreate it
 ## dropdb goeen001
 ## pg_restore -C -d postgres goeen.bck.dump
@@ -99,6 +96,3 @@ tree -sh $bckfile
 ## to reload the dump in a new database
 ## creatdb -T template0 newdb
 ## pg_restore -d newdb goeen.bck.dump # msg d'erreur mais parait ok a voir dans la vraie vie.
-
-## Qd je me connecte en lof sur le server
-## je ne peux pas lancer un pg_dump. Se plaint que le role lof n'existe pas.
