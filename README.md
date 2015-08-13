@@ -22,12 +22,14 @@ postgres=#\password postgres
 2/ editer le pg_hba.conf
 
 ------
+
 Par defaut on peut se connecter à postgres si username est le meme que le postgres username.
 Pour se connecter à la base de donnée la seule facon de faire c'est:
+```
 $su
 #su postgres
 #psql unnomdedatabaseexistant (comme template0)
-
+```
 Mais on aimerait bien pouvoir se connecter en tant qu'utilisateur linux habituel. Il y a plusieurs facon de faire. 
 Pour permettre à des utilisateurs locaux d'accéder à la base de donnée il faut éditer /etc/postgresql/pg_hba.conf
 Mais une fois qu'on a autorisé les users à entrer dans la database ils doivent aussi exiter dans la database pour pouvoir se connecter.
