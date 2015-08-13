@@ -5,20 +5,21 @@
 # USAGE:
 #
 # * Setup openerp server and create a first OpenERP7 7 instance
-#   oe-admin install [name1] --full
+#   oo7-admin install [name1] --full
 #
 # * Create an additional OpenERP7 7 instance
-#   oe-admin install [name2]
+#   oo7-admin install [name2]
 #
 # * Start one OpenERP instance (to the terminal)
-# 	oe-admin start [name2] [server options]
+# 	oo7-admin start [name2] [server options]
 #
 # EXAMPLE:
-# oe-admin install development --full
-# oe-admin install staging
-# oe-admin start staging --xmlrpc-port=8080 &
-# oe-admin start development --xmlrpc-port=8080 --debug
-# Original Author: Daniel Reis, 2013
+# oo7-admin install development --full
+# oo7-admin install staging
+# oo7-admin start staging --xmlrpc-port=8080 &
+# oo7-admin start development --xmlrpc-port=8080 --debug
+# Original Author:	Daniel Reis, 2013
+# Modified by:		FRANCOIS Laurent 2015
 ################################################################################
 #  Copyright 2013 Nicholas <nicholas.riegel@gmail.com>
 #  
@@ -32,14 +33,14 @@
 #  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #  GNU General Public License for more details.
 #  
-#  You should have received a copy of the GNU General Public License
+#  You should have received a copy of the GNU General Public Licesudo apt-get install postgresqlnse
 #  along with this program; if not, write to the Free Software
 #  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #  MA 02110-1301, USA.
 
 #fixed parameters:
-OEADMIN_USER="openerp"
-OEADMIN_HOME="/opt/openerp"
+OO_USER="openerp"
+OO_HOME="/opt/openerp"
 
 case "$1" in
 install)
@@ -53,7 +54,7 @@ install)
 		sudo apt-get install postgresql
 		
 		echo -e "\n---- Install tool debian packages ----"
-		yes | sudo apt-get install bzr bzrtools python-pip
+		yes | sudo apt-get install git bzr bzrtools python-pip
 
 		echo -e "\n---- Install python debian packages ----"
 		yes | sudo apt-get install python-dateutil python-docutils python-feedparser \
@@ -67,11 +68,11 @@ install)
 		sudo pip install gdata
 		
 		echo -e "\n---- Create system user ----"
-		sudo adduser --system --quiet --shell=/bin/bash --home=$OEADMIN_HOME --gecos 'OpenERP' --group $OEADMIN_USER
-		sudo mkdir /var/log/$OEADMIN_USER
-		sudo chown $OEADMIN_USER:$OEADMIN_USER /var/log/$OEADMIN_USER
-		sudo mkdir -p $OEADMIN_HOME/$OEADMIN_USER
-		sudo chown $OEADMIN_USER:$OEADMIN_USER $OEADMIN_HOME/$OEADMIN_USER
+		sudo adduser --system --quiet --shell=/bin/bash --home=$OO_HOME --gecos 'OpenERP' --group $OO_USER
+		sudo mkdir /var/log/$OO_USER
+		sudo chown $OO_USER:$OO_USER /var/log/$OO_USER
+		sudo mkdir -p $OO_HOME/$OO_USER
+		sudo chown $OO_USER:$OO_USER $OO_HOME/$OO_USER
 	fi
 	
 	#--------------------------------------------------
@@ -81,51 +82,51 @@ install)
 	echo -e "\n==== Create instance $INSTANCE ===="
 
 	echo "* Create instance directory"
-	mkdir -p $OEADMIN_HOME/$INSTANCE
+	mkdir -p $OO_HOME/$INSTANCE
 
 	echo "* Create postgres user"
 	echo "A new PostgreSQL user, openerp-"$INSTANCE" will be created."
 	echo "Enter the network port for this instance (i.e. 8070, 8071, etc):" 
 	read instance_port
 	sudo su -c "createuser -e --createdb --no-createrole --no-superuser openerp-$INSTANCE" postgres	
-	if [ -d $OEADMIN_HOME/$INSTANCE/server ] ; then
+	if [ -d $OO_HOME/$INSTANCE/server ] ; then
 		echo "* Server directory exists: skipping"
 	else
 		echo -e "* Download files"
 		#Download nightly builds
-		mkdir -p $OEADMIN_HOME/downloads
-		wget --no-clobber http://nightly.openerp.com/7.0/nightly/src/openerp-7.0-latest.tar.gz -P $OEADMIN_HOME/downloads
+		mkdir -p $OO_HOME/downloads
+		wget --no-clobber http://nightly.openerp.com/7.0/nightly/src/openerp-7.0-latest.tar.gz -P $OO_HOME/downloads
 		echo -e "* Uncompress files"
-		rm -rf $OEADMIN_HOME/downloads/tmp
-		mkdir -p $OEADMIN_HOME/downloads/tmp
-		tar xvf $OEADMIN_HOME/downloads/openerp-7.0-latest.tar.gz --directory=$OEADMIN_HOME/downloads/tmp
+		rm -rf $OO_HOME/downloads/tmp
+		mkdir -p $OO_HOME/downloads/tmp
+		tar xvf $OO_HOME/downloads/openerp-7.0-latest.tar.gz --directory=$OO_HOME/downloads/tmp
 		echo -e "* Install files"
-		mkdir -p $OEADMIN_HOME/$INSTANCE/server
-		mv $OEADMIN_HOME/downloads/tmp/`ls $OEADMIN_HOME/downloads/tmp/`/* $OEADMIN_HOME/$INSTANCE/server
-		#bzr co lp:openerp-web/7.0 $OEADMIN_HOME/$INSTANCE/web
-		#bzr co lp:openobject-server/7.0 $OEADMIN_HOME/$INSTANCE/server
-		#bzr co lp:openobject-addons/7.0 $OEADMIN_HOME/$INSTANCE/addons
+		mkdir -p $OO_HOME/$INSTANCE/server
+		mv $OO_HOME/downloads/tmp/`ls $OO_HOME/downloads/tmp/`/* $OO_HOME/$INSTANCE/server
+		#bzr co lp:openerp-web/7.0 $OO_HOME/$INSTANCE/web
+		#bzr co lp:openobject-server/7.0 $OO_HOME/$INSTANCE/server
+		#bzr co lp:openobject-addons/7.0 $OO_HOME/$INSTANCE/addons
 	fi
 	
 	echo -e "* Create server config file"
-	cp $OEADMIN_HOME/$INSTANCE/server/install/openerp-server.conf $OEADMIN_HOME/$INSTANCE --backup=numbered
-	sed -i s/"db_user = .*"/"db_user = openerp-$INSTANCE"/g $OEADMIN_HOME/$INSTANCE/openerp-server.conf
-	#sed -i s/"db_password = .*"/"db_password = $instance_pass"/g $OEADMIN_HOME/$INSTANCE/openerp-server.conf
-	echo "xmlrpc_port = $instance_port" >> $OEADMIN_HOME/$INSTANCE/openerp-server.conf
-	echo "logfile = /var/log/openerp/openerp-$INSTANCE.log" >> $OEADMIN_HOME/$INSTANCE/openerp-server.conf
+	cp $OO_HOME/$INSTANCE/server/install/openerp-server.conf $OO_HOME/$INSTANCE --backup=numbered
+	sed -i s/"db_user = .*"/"db_user = openerp-$INSTANCE"/g $OO_HOME/$INSTANCE/openerp-server.conf
+	#sed -i s/"db_password = .*"/"db_password = $instance_pass"/g $OO_HOME/$INSTANCE/openerp-server.conf
+	echo "xmlrpc_port = $instance_port" >> $OO_HOME/$INSTANCE/openerp-server.conf
+	echo "logfile = /var/log/openerp/openerp-$INSTANCE.log" >> $OO_HOME/$INSTANCE/openerp-server.conf
 	
 	#
-	#echo "addons_path=/opt/openerp/$INSTANCE/addons,/opt/openerp/$INSTANCE/web/addons" >> $OEADMIN_HOME/$INSTANCE/openerp-server.conf
+	#echo "addons_path=/opt/openerp/$INSTANCE/addons,/opt/openerp/$INSTANCE/web/addons" >> $OO_HOME/$INSTANCE/openerp-server.conf
 	echo "#!/bin/sh
-sudo -u $OEADMIN_USER $OEADMIN_HOME/$INSTANCE/server/openerp-server --config=$OEADMIN_HOME/$INSTANCE/openerp-server.conf \$*
-" > $OEADMIN_HOME/$INSTANCE/start.sh
-	chmod 755 $OEADMIN_HOME/$INSTANCE/start.sh
+sudo -u $OO_USER $OO_HOME/$INSTANCE/server/openerp-server --config=$OO_HOME/$INSTANCE/openerp-server.conf \$*
+" > $OO_HOME/$INSTANCE/start.sh
+	chmod 755 $OO_HOME/$INSTANCE/start.sh
 	;;
 
 start)
 	INSTANCE=$2
 	shift 2
-	$OEADMIN_HOME/$INSTANCE/start.sh $*
+	$OO_HOME/$INSTANCE/start.sh $*
 	;;
 	
 esac
