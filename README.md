@@ -14,12 +14,15 @@ oerp-admin.sh
  of a testing server instance to a production server instance.
  
 Au depart on ne peut pas se connecter à postgresql avec l'utilisateur postgres.
-1/donner un password à postgres
+
+1. donner un password à postgres
+```
 $su
 #su postgres
 $psql
 postgres=#\password postgres
-2/ editer le pg_hba.conf
+```
+2. editer le pg_hba.conf
 
 ------
 
