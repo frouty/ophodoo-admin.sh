@@ -7,21 +7,18 @@
 # derniere MAJ : 2013-11-25                                                          #
 # modifié le : 22/07/2015 
 # par laurent FRANCOIS                                                               #
-# Script: dump on the server of the database: dbname                                  #
+# Script: dump on the server of the database: dbname                                 #
 #                                                                                    #
-# Sauvegarde sur le serveur                   #
+# Sauvegarde sur le serveur                                                          #
 #                                                                                    #
-# Script à mettre en CHMOD : 0755                                                    #
-# Et à exécuter en 'lof'                                                            #
+# Script à mettre en CHMOD : 0755  ????                                              #
+# Et à exécuter en 'lof'                                                             #
 #                                                                                    #
 #   Utilisation :                                                                    #
 #   -------------                                                                    #
-#   Pour exécuter le fichier sous Debian                                             #
-#   Placer le fichier dans le répertoire /root                                       #
-#   Ouvrir une invite de commande et entrer                                          #
-#       cd /root                                                                     #
-#       bash ./backup-all-oo.sh                                                   #
-#                                                                                    #      
+#       cd /home/lof/ophodoo-admin                                                   #
+#       ./dump-oo.sh                                                                 #
+#                                                                                    #
 #////////////////////////////////////////////////////////////////////////////////////#
 
 # ---------------------------------------------------------------------------------- #
@@ -67,7 +64,7 @@ pg_dump -U $odoouser -Fc $dbname -h 127.0.0.1 > $bckfile
 # il va falloir le changer.
 
 # show the dump and there size
-tree -sh $bckfile
+tree -sh $bckroot
 
 # le probleme avec ce script c'est qu'il faut faire un rsync depuis le server 
 # sur un autre poste pour faire une sauvegarde.
