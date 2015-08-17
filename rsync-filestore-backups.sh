@@ -4,13 +4,18 @@
 #  SCRIPT DE SAUVEGARDE DE L'ARBORESCENCE FILESTORE
 #  Par Laurent FRANCOIS
 #  Date: aout 2015
-#  Le script effectue une suavegarde de l'arborescence filestore
+#  Le script effectue une sauvegarde de l'arborescence filestore
 #  donc de tous les documents (pdf,odt...) du serveur odoo
 #  en local. 
 
 # RPATH is the path of the filestore directory on the server.
 # RHOST is the IP's server
 # LPATH is the path where you want to save the filestore bck on local
+# 
+# Utilisation:
+# Sur le serveur de bck
+# $cd ~/ophodoo-admin.sh
+# $./rsync-filestore-backups.sh
 #------------------------------------------------------#
 
 RSYNC=/usr/bin/rsync 
