@@ -36,6 +36,14 @@ FILESTORE_DIR=filestore
 SUFFIXE=$(date +'%F_%T')
 echo "SUFFIXE: $SUFFIXE"
 ##--
+
+##--
+# Check if root
+if [ "$EUID" -ne 0 ]; then
+	echo "This script should be run as root"
+	exit 1
+fi
+##--
 echo "BEFORE, MAKE A DUMP"
 cd $HOMEDIR/$SCRIPT_DIR
 ./dump-oo.sh

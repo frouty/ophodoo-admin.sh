@@ -29,6 +29,7 @@ SUFFIXE=$(date +'%F_%T')
 echo "SUFFIXE: $SUFFIXE"
 
 echo "BEFORE, MAKE A DUMP"
+## 
 error() {
 	printf '\E[31m'; echo "$@"; printf '\E[0m'
 }
