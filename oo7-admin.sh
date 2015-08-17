@@ -117,7 +117,6 @@ install)
 		
 		echo -e "\n clone the odoo server"
 		GIT clone $GITHUB-ODOO $HOMEDIR/$GITODOO
-		
 	fi
 	
 	#--------------------------------------------------
