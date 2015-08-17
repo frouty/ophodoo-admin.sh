@@ -15,8 +15,9 @@
 # Et à exécuter en 'lof'                                                             #
 #                                                                                    #
 #   Utilisation :                                                                    #
-#   -------------                                                                    #
-#       cd /home/lof/ophodoo-admin                                                   #
+#   ------------- 
+#       ssh leserveur openerp                                                                    #
+#       cd /home/lof/ophodoo-admin.sh                                                   #
 #       ./dump-oo.sh                                                                 #
 #                                                                                    #
 #////////////////////////////////////////////////////////////////////////////////////#
