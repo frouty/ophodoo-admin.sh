@@ -43,6 +43,7 @@ cd $HOMEDIR/$SCRIPT_DIR
 # Copy dir_server prod to dir_server prod last
 # so if there is a problem it's easy to go back
 rsync-copy $HOMEDIR/$SERVER_DIR/$SERVER_NAME $HOMEDIR/$SERVER_DIR/$SERVER_NAME.last
+exit 0
 #check if you're root
 #not useful here
 #in case I need it
