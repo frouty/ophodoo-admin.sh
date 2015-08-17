@@ -15,12 +15,17 @@
 
 
 
-il faut être root pour se loguer à postgres sans avoir à rentre un password. Le compte Postgres Unix est vérouillé (aucun password ne marchera). Ce qui veut dire que seul root peut su vers ce compte.
+il faut être root pour se loguer à postgres sans avoir à rentrer un password. Le compte Postgres Unix est vérouillé (aucun password ne marchera). Ce qui veut dire que seul root peut su vers ce compte.
+```
+$su
+#su - postgres
+```
+ou
 ```
 $sudo su - postgres
 ```
 #les passwords dans postgresq
-##superuser passwor
+##superuser password
 Au départ il y a un seul superuser password. Il vérouille la base de donnée elle même. Il est mis en place pendant l'installation initiale. Et on peut le changer avec pgadmin ou avec une requete SQL:
 ```
 ALTER USER postgres WITH PASSWORD 'VeryVerySecret';
