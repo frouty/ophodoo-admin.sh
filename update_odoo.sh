@@ -4,6 +4,12 @@
 #Utiliser des chemins absolu pour les dossiers et des chemins relatif pour les nom de 
 #$CHEMIN_DU_DOSSIER/$NOM_DU_FICHIER
 #
+#
+# ---UTILISATION---
+# cd /home/lof/ophodoo-admin.sh/
+# git pull origin master
+# su 
+# ./update_odoo.sh
 #suffixe=$(date +%F_%T) ---> 2015-02-07_10:20:37
 #cp -a /home/lfs/odoogoeen /usr/odoogoeen-$(date +F_%T)
 #-----------------------
@@ -46,7 +52,7 @@ service odoo-server stop
 # Copy dir_server prod to dir_server prod last
 # so if there is a problem it's easy to go bac
 # rm the the prod server dir
-"echo "rsync-copy the $SERVER_PATH/$SERVER_NAME/ to $SERVER_PATH/$SERVER_NAME.last"
+"echo "rsync-copy the $SERVER_PATH\/$SERVER_NAME\/ to $SERVER_PATH\/$SERVER_NAME.last"
 sleep 2
 rsync -avz --progress -h $SERVER_PATH/$SERVER_NAME/ $SERVER_PATH/$SERVER_NAME.last
 echo "rm the $SERVER_PATH/$SERVER_NAME server"
