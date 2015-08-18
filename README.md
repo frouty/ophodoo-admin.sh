@@ -11,8 +11,28 @@
  OpenERP_7_Admin.sh - one command line installation for OpenERP 7.0 server instances
  
  OpenERP_7_Copy.sh - one command line backup of production server instance and copy 
- of a testing server instance to a production server instance.
- 
+ of a testing serv
+
+
+
+il faut être root pour se loguer à postgres sans avoir à rentrer un password. Le compte Postgres Unix est vérouillé (aucun password ne marchera). Ce qui veut dire que seul root peut su vers ce compte.
+```
+$su
+#su - postgres
+```
+ou
+```
+$sudo su - postgres
+```
+#les passwords dans postgresq
+##superuser password
+Au départ il y a un seul superuser password. Il vérouille la base de donnée elle même. Il est mis en place pendant l'installation initiale. Et on peut le changer avec pgadmin ou avec une requete SQL:
+```
+ALTER USER postgres WITH PASSWORD 'VeryVerySecret';
+```
+##service password.
+Postgres tourne sur un compte systeme spécial. Ce compte est créé lors de l'installation. Il s'appelle postgres. Dans linux ce compte est mis en place sans password. et il ne faut pas s'en occuper.
+
 Au depart on ne peut pas se connecter à postgresql avec l'utilisateur postgres.
 
 1* donner un password à postgres

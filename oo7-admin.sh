@@ -24,7 +24,7 @@
 # need the libreoffice.sh
 # need the odoo-server init.d file
 # need the odoo-server.conf in /etc/
-
+#
 # EXAMPLE:
 # oo7-admin install development --full
 # oo7-admin install staging
@@ -62,6 +62,13 @@ GITSCRIPTSDEST=$HOMEDIR/$GITSCRIPTS
 GITHUB-ODOO='git@github.com:frouty/odoogoeen.git'
 GITODOO='odoogoeen'
 
+##--
+# Check if root
+if [ "$EUID" -ne 0 ]; then
+	echo "This script should be run as root and you're not root"
+	exit 1
+fi
+
 case "$1" in
 install)
 	#--------------------------------------------------
@@ -70,15 +77,24 @@ install)
 	if [ "$3" = "--full" ] ; then
 		#Make this script available anywhere:
 		#sudo ln -sf /usr/local/bin $0
-				
+		echo -e "\n----update everything-------"
+		aptitude update && aptitude dist-upgrade
+		
+		echo -e "\n---- Install the ssh server ----"
+		aptitude install openssh-server
+		
 		echo -e "\n---- Install PostgreSQL ----"
-		sudo apt-get install postgresql
+		aptitude  install postgresql
+		
+		echo -e "\n--- Create a postgresql user ----"
+		su -c "createuser --echo --no-createrole --createdb --no-superuser --pwprompt openerp" - postgres
+		echo -e "\n--- Remenber the password you will need it in /etc/odoo-server.conf db_password "
 		
 		echo -e "\n---- Install tool debian packages ----"
-		yes | sudo apt-get install git bzr bzrtools python-pip
+		aptitude install git gitk python-pip
 
 		echo -e "\n---- Install python debian packages ----"
-		yes | sudo apt-get install python-dateutil python-docutils python-feedparser \
+		aptitude install python-dateutil python-docutils python-feedparser \
 		python-gdata python-jinja2 python-ldap python-libxslt1 python-lxml python-mako \
 		python-mock python-openid python-psycopg2 python-psutil python-pybabel \
 		python-pychart python-pydot python-pyparsing python-reportlab python-simplejson \
@@ -86,18 +102,21 @@ install)
 		python-werkzeug python-xlwt python-yaml python-zsi python2.7-arrow
 		
 		echo -e "\n---- Install python libraries ----"
-		sudo pip install gdata
+		pip install gdata
 		
 		echo -e "\n---- Create system user ----"
-		sudo adduser --system --quiet --shell=/bin/bash --home=$OO_HOME --gecos 'OpenERP' --group $OO_USER
-		sudo mkdir /var/log/$OO_USER
-		sudo chown $OO_USER:$OO_USER /var/log/$OO_USER
-		sudo mkdir -p $OO_HOME/$OO_USER
-		sudo chown $OO_USER:$OO_USER $OO_HOME/$OO_USER
+		#adduser --system --quiet --shell=/bin/bash --home=$OO_HOME --gecos 'OpenERP' --group $OO_USER
+		adduser --system --quiet --home=$OO_HOME --gecos 'OpenERP' --group $OO_USER
+		
+		echo -e "\n---- Create the log file ------"
+		mkdir /var/log/$OO_USER
+		chown $OO_USER:root /var/log/$OO_USER
+		echo -e "\n---- Create the path to the server-----"
+		mkdir -p $OO_HOME/$OO_USER
+		chown $OO_USER:$OO_USER $OO_HOME/$OO_USER
 		
 		echo -e "\n clone the odoo server"
-		yes | GIT clone $GITHUB-ODOO $HOMEDIR/$GITODOO
-		
+		GIT clone $GITHUB-ODOO $HOMEDIR/$GITODOO
 	fi
 	
 	#--------------------------------------------------
