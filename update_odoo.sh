@@ -26,6 +26,9 @@ SERVER_BCK='backup'
 FILESTORE_PATH="$SERVER_PATH/$SERVER_NAME/openerp"
 FILESTORE_DIR=filestore
 ##--
+LOG_PATH="/var/log/openerp/"
+LOG_FILE="odoo-server.log"
+##--
 SUFFIXE=$(date +'%F_%T')
 echo "SUFFIXE: $SUFFIXE"
 ##--
@@ -49,7 +52,10 @@ service odoo-server stop
 # Copy dir_server prod to dir_server prod last
 # so if there is a problem it's easy to go bac
 # rm the the prod server dir
+"echo "rsync the $SERVER_PATH/$SERVER_NAME/ to $SERVER_PATH/$SERVER_NAME.last"
+sleep 2
 rsync -avz --progress -h $SERVER_PATH/$SERVER_NAME/ $SERVER_PATH/$SERVER_NAME.last
+echo "rm the $SERVER_PATH/$SERVER_NAME server"
 rm -r $SERVER_PATH/$SERVER_NAME
 
 
@@ -57,13 +63,18 @@ rm -r $SERVER_PATH/$SERVER_NAME
 # Update the server repository
 # Change to the branch you want
 # git checkout branch namebranch
+echo "cd $REPOSITORY_PATH/$SERVER_NAME"
+sleep 2
 cd $REPOSITORY_PATH/$SERVER_NAME
-printf 
 
 # then copy the repository
+echo "then copy the repository to the server path"
+sleep 2
 rsync -avz --progress -h $REPOSITORY/ $HOMEDIR/$SERVER_DIR/$SERVER_NAME
 ##--
 # recuperer le filestore
+echo "copier filestore from $HOMEDIR/$SERVER_DIR/$SERVER_NAME.last/openerp/filestore to $HOMEDIR/$SERVER_DIR/$SERVER_NAME/openerp/"
+sleep 2
 rsync -avz --progress -h $HOMEDIR/$SERVER_DIR/$SERVER_NAME.last/openerp/filestore $HOMEDIR/$SERVER_DIR/$SERVER_NAME/openerp/
 ##--
 chown -R $USER_NAME:$USER_NAME /home/lof/ODOO/odoogoeen
@@ -71,7 +82,7 @@ chown -R $USER_NAME:$USER_NAME /home/lof/ODOO/odoogoeen
 #relancer le service 
 service odoo-server start
 ##--
-tail -f /var/log/openerp/
+tail -f $LOG_PATH/$LOG_FILE
 
 
 ## Start the server
