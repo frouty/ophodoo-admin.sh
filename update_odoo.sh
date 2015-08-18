@@ -52,11 +52,10 @@ service odoo-server stop
 # Copy dir_server prod to dir_server prod last
 # so if there is a problem it's easy to go bac
 # rm the the prod server dir
-"echo "rsync-copy the $SERVER_PATH\/$SERVER_NAME\/ to $SERVER_PATH\/$SERVER_NAME.last"
+#"echo "rsync-copy the $SERVER_PATH\/$SERVER_NAME\/ to $SERVER_PATH\/$SERVER_NAME.last"
 sleep 2
 rsync -avz --progress -h $SERVER_PATH/$SERVER_NAME/ $SERVER_PATH/$SERVER_NAME.last
-echo "rm the $SERVER_PATH/$SERVER_NAME server"
-sleep 2
+#echo "rm the $SERVER_PATH/$SERVER_NAME server"
 rm -r $SERVER_PATH/$SERVER_NAME
 
 
@@ -70,7 +69,7 @@ cd $REPOSITORY_PATH/$SERVER_NAME
 
 printf "\n Here are the branch of this repository:\n"
 git branch -v
-read -p "Choose the branch for checkout" BRANCH
+read -p "Choose the branch for checkout: " BRANCH
 git checkout $BRANCH
 printf "Update from remote repository"
 git pull origin $BRANCH
@@ -83,7 +82,7 @@ rsync -avz --progress -h $REPOSITORY_PATH/$SERVER_NAME $SERVER_PATH/$SERVER_NAME
 
 ##--
 # recuperer le filestore
-echo "copier filestore from $HOMEDIR/$SERVER_DIR/$SERVER_NAME.last/openerp/filestore to $HOMEDIR/$SERVER_DIR/$SERVER_NAME/openerp/"
+#echo "copier filestore from $HOMEDIR/$SERVER_DIR/$SERVER_NAME.last/openerp/filestore to $HOMEDIR/$SERVER_DIR/$SERVER_NAME/openerp/"
 sleep 2
 rsync -avz --progress -h $SERVER_PATH/$SERVER_NAME.last/openerp/filestore $SERVER_PATH/$SERVER_NAME/openerp/
 ##--
