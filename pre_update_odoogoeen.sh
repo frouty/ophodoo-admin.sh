@@ -34,11 +34,22 @@ NOW = $(date +"%F-%T")
 HOMEDIR=${HOME} # home directory in the odoo server
 SERVERROOT='ODOO'
 SERVERDIR=$HOMEDIR/$SERVERROOT
-SERVERDIRNAME='odoogoeen' #we could rename it in INSTANCE
+REP_ODOO='odoogoeen' #we could rename it in INSTANCE
 SUF='prod'
 BCKDIR=$SERVERDIRNAME.$SUF
 FILESTORE_PATH='openerp/filestore'
 # ----------------------------------------------------------------------------------- #
+
+##-- update the odoo rep
+cd $HOMEDIR/$REP_ODOO
+git checkout BRANCH
+git pull origin BRANCH
+##-- update the ophodoo-admin.sh rep
+cd $HOMEDIR/$REP_ODOO/ophodoo-admin.sh
+git pull origin master
+
+
+
 echo "DONT FORGET TO DUMP THE DATABASE"
 echo "--- WARNING --- WARNING ---"
 ## On peut appeler le script de dump  pour faire cela à voir
