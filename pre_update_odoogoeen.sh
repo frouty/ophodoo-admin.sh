@@ -39,24 +39,23 @@ SUF='prod'
 BCKDIR=$SERVERDIRNAME.$SUF
 FILESTORE_PATH='openerp/filestore'
 # ----------------------------------------------------------------------------------- #
+## --chose the branch
+
+
 
 ##-- update the odoo rep
 cd $HOMEDIR/$REP_ODOO
-git checkout BRANCH
-git pull origin BRANCH
+printf "\n Here are the branch of this repository:\n"
+git branch -v
+read -p "Choose the branch you want to use for update: " BRANCH
+git checkout $BRANCH
+printf "Update from remote repository"
+git pull origin $BRANCH
+
 ##-- update the ophodoo-admin.sh rep
 cd $HOMEDIR/$REP_ODOO/ophodoo-admin.sh
 git pull origin master
 
-
-
-echo "DONT FORGET TO DUMP THE DATABASE"
-echo "--- WARNING --- WARNING ---"
-## On peut appeler le script de dump  pour faire cela à voir
-## cd ./home/lof/ophodoo-admin.sh
-## ./dump-oo.sh &
-echo "we are closing the odoogoeen server"
-service odoo-server stop
 
 echo "Backing up the last running odoogoeen directory of the server, please wait..."
 rsync-copy $SERVERDIR/$SERVERDIRNAME/ $HOMEDIR/$BCKDIR.$NOW
