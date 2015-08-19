@@ -1,16 +1,16 @@
 #! /bin/bash
 
 #////////////////////////////////////////////////////////////////////////////////////#
-# Script for backup of the production version of odoogoeen
+# Script for backup of the production version of odoogoeen                           #
 # to be run before an update                                                         #
 #                                                                                    #
 # derniere MAJ :                                                                     #
-# Created : 06/08/2015 
+# Created : 06/08/2015                                                               #
 # par laurent FRANCOIS                                                               #
-# Le script effectue une sauvegarde complète du repertoire odoogoeen
-# So if there is a problem during update you can reverse easily                         #
-# without usint git.
-# 
+# Le script effectue une sauvegarde complète du repertoire odoogoeen                 #
+# So if there is a problem during update you can reverse easily                      #
+# without usint git.                                                                 #
+#                                                                                    #
 # In this backup you have the last filestore                                         #
 # with all the docs, odt, pdf ... for patients                                       #
 #                                                                                    #
@@ -19,14 +19,14 @@
 #                                                                                    #
 #   Utilisation :                                                                    #
 #   -------------                                                                    #
-#   Pour exécuter le fichier sous Debian 
-#   ssh to the server
+#   Pour executer le fichier sous Debian                                             #
+#   ssh to the server                                                                #
 #   Placer le fichier dans le répertoire /root                                       #
 #   Ouvrir une invite de commande et entrer                                          #
 #       cd /root                                                                     #
-#       bash ./       
+#       bash ./                                                                      #
 #                                                                                    #
-#                                                                                    #      
+#                                                                                    #
 #////////////////////////////////////////////////////////////////////////////////////#
 
 # ---------------------------------------------------------------------------------- #
@@ -40,12 +40,13 @@ REP_ADMIN='ophodoo-admin.sh'
 SUF='prod'
 BCKDIR=$SERVER_NAME.$SUF
 FILESTORE_PATH='openerp/filestore'
+
 # ----------------------------------------------------------------------------------- #
-echo "NOW is: $NOW"
+
 ## Verify your not root
 ##-- Check if root
 if [ "$EUID" -eq 0 ]; then
-	echo "This script should --NOT-- be run as root and you're not root"
+	echo "This script should --NOT-- be run as root and you're root"
 	exit 1
 fi
 
@@ -77,4 +78,6 @@ echo "\nSize of the last bck filestore directory is:"
 du -h --summarize $HOMEDIR/$BCKDIR.$NOW/$FILESTORE_PATH
 
 echo "Now you can start the update script"
+echo -e "\nsu"
+echo -e "\nupdate_odoo.sh"
 exit 0
