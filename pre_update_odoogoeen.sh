@@ -59,9 +59,8 @@ git pull origin $BRANCH
 cd $HOMEDIR/$REP_ADMIN
 git pull origin master
 
-
 echo "Backing up the last running odoogoeen directory of the server, please wait..."
-rsync-copy $SERVER_PATH/$SERVER_NAME/ $HOMEDIR/$BCKDIR.$NOW
+rsync -avz --progress -h $SERVER_PATH/$SERVER_NAME/ $HOMEDIR/$BCKDIR.$NOW
 
 echo "The last odoogoeen server directories are:"
 ls -alh $HOMEDIR/$BCKDIR*
