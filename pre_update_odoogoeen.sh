@@ -43,7 +43,11 @@ FILESTORE_PATH='openerp/filestore'
 # ----------------------------------------------------------------------------------- #
 
 ## Verify your not root
-
+##-- Check if root
+if [ "$EUID" -e 0 ]; then
+	echo "This script should --NOT-- be run as root and you're not root"
+	exit 1
+fi
 
 ##-- update the odoo rep
 cd $HOMEDIR/$REP_ODOO
@@ -60,16 +64,17 @@ cd $HOMEDIR/$REP_ADMIN
 git pull origin master
 
 echo "Backing up the last running odoogoeen directory of the server, please wait..."
+sleep 3
 rsync -avz --progress -h $SERVER_PATH/$SERVER_NAME/ $HOMEDIR/$BCKDIR.$NOW
 
-echo "The last odoogoeen server directories are:"
+echo -e "\nThe last odoogoeen server directories are:"
 ls -alh $HOMEDIR/$BCKDIR*
 
-echo "Size of the last backup odoogoeen directories are:"
+echo -e "\nSize of the last backup odoogoeen directories are:"
 du -h --summarize $HOMEDIR/$BCKDIR*/
 
-echo "The size of the last bck filestore directory is:"
+echo "\nSize of the last bck filestore directory is:"
 du -h --summarize $HOMEDIR/$BCKDIR.$NOW/$FILESTORE_PATH
 
-echo "Now you can start the update scritp"
+echo "Now you can start the update script"
 exit 0
