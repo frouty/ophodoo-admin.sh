@@ -30,10 +30,10 @@
 #////////////////////////////////////////////////////////////////////////////////////#
 
 # ---------------------------------------------------------------------------------- #
-NOW = $(date +"%F-%T")
+NOW=$(date +"%F-%T")
 HOMEDIR=${HOME} # home directory in the odoo server
-SERVERROOT='ODOO'
-SERVER_PATH=$HOMEDIR/$SERVERROOT
+SERVER_ROOT='ODOO'
+SERVER_PATH=$HOMEDIR/$SERVER_ROOT
 SERVER_NAME='odoogoeen'
 REP_ODOO='odoogoeen' #we could rename it in INSTANCE
 REP_ADMIN='ophodoo-admin.sh'
@@ -41,10 +41,10 @@ SUF='prod'
 BCKDIR=$SERVER_NAME.$SUF
 FILESTORE_PATH='openerp/filestore'
 # ----------------------------------------------------------------------------------- #
-printf "NOW is: %s" "$NOW"
+echo "NOW is: $NOW"
 ## Verify your not root
 ##-- Check if root
-if [ "$EUID" -e 0 ]; then
+if [ "$EUID" -eq 0 ]; then
 	echo "This script should --NOT-- be run as root and you're not root"
 	exit 1
 fi
