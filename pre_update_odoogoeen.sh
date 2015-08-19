@@ -33,32 +33,35 @@
 NOW = $(date +"%F-%T")
 HOMEDIR=${HOME} # home directory in the odoo server
 SERVERROOT='ODOO'
-SERVERDIR=$HOMEDIR/$SERVERROOT
+SERVER_PATH=$HOMEDIR/$SERVERROOT
+SERVER_NAME='odoogoeen'
 REP_ODOO='odoogoeen' #we could rename it in INSTANCE
+REP_ADMIN='ophodoo-admin.sh'
 SUF='prod'
-BCKDIR=$SERVERDIRNAME.$SUF
+BCKDIR=$SERVER_NAME.$SUF
 FILESTORE_PATH='openerp/filestore'
 # ----------------------------------------------------------------------------------- #
-## --chose the branch
 
+## Verify your not root
 
 
 ##-- update the odoo rep
 cd $HOMEDIR/$REP_ODOO
 printf "\n Here are the branch of this repository:\n"
 git branch -v
+## --chose the branch
 read -p "Choose the branch you want to use for update: " BRANCH
 git checkout $BRANCH
 printf "Update from remote repository"
 git pull origin $BRANCH
 
 ##-- update the ophodoo-admin.sh rep
-cd $HOMEDIR/$REP_ODOO/ophodoo-admin.sh
+cd $HOMEDIR/$REP_ADMIN
 git pull origin master
 
 
 echo "Backing up the last running odoogoeen directory of the server, please wait..."
-rsync-copy $SERVERDIR/$SERVERDIRNAME/ $HOMEDIR/$BCKDIR.$NOW
+rsync-copy $SERVER_PATH/$SERVER_NAME/ $HOMEDIR/$BCKDIR.$NOW
 
 echo "The last odoogoeen server directories are:"
 ls -alh $HOMEDIR/$BCKDIR*
@@ -69,25 +72,5 @@ du -h --summarize $HOMEDIR/$BCKDIR*/
 echo "The size of the last bck filestore directory is:"
 du -h --summarize $HOMEDIR/$BCKDIR.$NOW/$FILESTORE_PATH
 
-echo "Now we are updating the production server directory"
-echo "Renaming the production server directory to $SERVERDIRNAME.last"
-mv $SERVERDIR/$SERVERDIRNAME $SERVERDIR/$SERVERDIRNAME.last
-ls -alh $SERVERDIR/$SERVERDIRNAME
-
-echo "Update the odoo server directory from $HOMEDIR/$SERVERDIRNAME to $SERVERDIR"
-rsync-move $HOMEDIR/$SERVERDIRNAME $SERVERDIR/
-ls -alh $SERVERDIR/$SERVERDIRNAME
-
-echo "change ownership and group to $ODOOUSER"
-chown -R $ODOOUSER:$ODOOUSER $SERVERDIR/$SERVERDIRNAME/
-
-echo "Copy the last filestore tree files to the new file tree server"
-rsync-copy $SERVERDIR/$SERVERDIRNAME.last/$FILESTORE_PATH/ $SERVERDIR/$SERVERDIRNAME/$FILESTORE_PATH
-
-echo "the size of the filestore is:"
-du -h --summarize $SERVERDIR/$SERVERDIRNAME/$FILESTORE_PATH
-
-echo "Restart the server odoogoeen"
-service odoo-server start
-# show up the log so you can see if everything fine.
-tail -f /var/log/openerp/odoo-server.log
+echo "Now you can start the update scritp"
+exit 0
