@@ -41,7 +41,7 @@ SUF='prod'
 BCKDIR=$SERVER_NAME.$SUF
 FILESTORE_PATH='openerp/filestore'
 # ----------------------------------------------------------------------------------- #
-
+printf "NOW is: %s" "$NOW"
 ## Verify your not root
 ##-- Check if root
 if [ "$EUID" -e 0 ]; then
