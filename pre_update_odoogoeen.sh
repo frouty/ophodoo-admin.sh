@@ -7,7 +7,7 @@
 # derniere MAJ :                                                                     #
 # Created : 06/08/2015                                                               #
 # par laurent FRANCOIS                                                               #
-# Le script effectue une sauvegarde complète du repertoire odoogoeen                 #
+# Le script effectue une sauvegarde complète du repertoire odoogoeen de production   #
 # So if there is a problem during update you can reverse easily                      #
 # without usint git.                                                                 #
 #                                                                                    #
@@ -21,7 +21,7 @@
 #   -------------                                                                    #
 #   Pour executer le fichier sous Debian                                             #
 #   ssh to the server                                                                #
-#   Placer le fichier dans le répertoire /root                                       #
+#   cd Placer le fichier dans le répertoire /root                                       #
 #   Ouvrir une invite de commande et entrer                                          #
 #       cd /root                                                                     #
 #       bash ./                                                                      #
@@ -57,10 +57,12 @@ git branch -v
 ## --chose the branch
 read -p "Choose the branch you want to use for update: " BRANCH
 git checkout $BRANCH
-printf "Update from remote repository"
+printf "Update from remote repository\n"
 git pull origin $BRANCH
 
 ##-- update the ophodoo-admin.sh rep
+echo "Update the ophodoo-admin.sh git repository\n"
+printf "Update from remote repository\n"
 cd $HOMEDIR/$REP_ADMIN
 git pull origin master
 
@@ -77,7 +79,8 @@ du -h --summarize $HOMEDIR/$BCKDIR*/
 echo "\nSize of the last bck filestore directory is:"
 du -h --summarize $HOMEDIR/$BCKDIR.$NOW/$FILESTORE_PATH
 
-echo "Now you can start the update script"
+echo "Now you can start the update script\n"
+echo "You may type"
 echo -e "\nsu"
-echo -e "\nupdate_odoo.sh"
+echo -e "update_odoo.sh"
 exit 0

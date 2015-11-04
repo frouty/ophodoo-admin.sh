@@ -4,13 +4,17 @@
 #Utiliser des chemins absolu pour les dossiers et des chemins relatif pour les nom de 
 #$CHEMIN_DU_DOSSIER/$NOM_DU_FICHIER
 #
-#
+#This script update the server from the local git repository.
+#the local git repository must be on the right branch ie the production branch.
 # ---UTILISATION---
 # $cd /home/lof/ophodoo-admin.sh
 # $git pull origin master
 # $./preupdate.sh
 # $su 
 # #./update_odoo.sh
+#
+#
+#
 #suffixe=$(date +%F_%T) ---> 2015-02-07_10:20:37
 #cp -a /home/lfs/odoogoeen /usr/odoogoeen-$(date +F_%T)
 #-----------------------
@@ -65,6 +69,7 @@ rsync -avz --progress -h $REPOSITORY_PATH/$SERVER_NAME $SERVER_PATH/$SERVER_NAME
 # recuperer le filestore
 #echo "copier filestore from $HOMEDIR/$SERVER_DIR/$SERVER_NAME.last/openerp/filestore to $HOMEDIR/$SERVER_DIR/$SERVER_NAME/openerp/"
 sleep 2
+echo "Copy filestore"
 rsync -avz --progress -h $SERVER_PATH/$SERVER_NAME.last/openerp/filestore $SERVER_PATH/$SERVER_NAME/openerp/
 ##--
 chown -R $USER_NAME:$USER_NAME $SERVER_PATH/$SERVER_NAME
