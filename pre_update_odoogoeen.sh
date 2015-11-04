@@ -57,7 +57,8 @@ git pull origin master
 
 ##-- update the odoo rep
 cd $HOMEDIR/$REP_ODOO
-printf "\n Here are the branch of this repository:\n"
+printf "Update the odoogoeen server\n"
+printf "Here are the branch of this repository:\n"
 git branch -v
 ## --chose the branch
 read -p "Choose the branch you want to use for update: " BRANCH
@@ -67,6 +68,7 @@ git pull origin $BRANCH
 
 
 echo "Backing up the last running odoogoeen directory of the server, please wait..."
+echo "Could take some times"
 sleep 3
 rsync -avz --progress -h $SERVER_PATH/$SERVER_NAME/ $HOMEDIR/$BCKDIR.$NOW
 
@@ -76,11 +78,11 @@ ls -alh $HOMEDIR/$BCKDIR*
 echo -e "\nSize of the last backup odoogoeen directories are:"
 du -h --summarize $HOMEDIR/$BCKDIR*/
 
-echo "\nSize of the last bck filestore directory is:"
+echo -e "\nSize of the last bck filestore directory is:"
 du -h --summarize $HOMEDIR/$BCKDIR.$NOW/$FILESTORE_PATH
 
-echo "Now you can start the update script\n"
+echo -e "Now you can start the update script\n"
 echo "You may type"
 echo -e "\nsu"
-echo -e "update_odoo.sh"
+echo -e "./update_odoo.sh"
 exit 0
