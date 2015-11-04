@@ -21,10 +21,9 @@
 #   -------------                                                                    #
 #   Pour executer le fichier sous Debian                                             #
 #   ssh to the server                                                                #
-#   cd Placer le fichier dans le répertoire /root                                       #
-#   Ouvrir une invite de commande et entrer                                          #
-#       cd /root                                                                     #
-#       bash ./                                                                      #
+#   su lof                                                                           #
+#   cd /home/lof/ophodoo-admin.sh/                                                   #
+#   ./pre_update_odoogoeen.sh                                                        #
 #                                                                                    #
 #                                                                                    #
 #////////////////////////////////////////////////////////////////////////////////////#
@@ -50,6 +49,12 @@ if [ "$EUID" -eq 0 ]; then
 	exit 1
 fi
 
+##-- update the ophodoo-admin.sh rep
+echo "Update the ophodoo-admin.sh git repository\n"
+printf "Update from remote repository\n"
+cd $HOMEDIR/$REP_ADMIN
+git pull origin master
+
 ##-- update the odoo rep
 cd $HOMEDIR/$REP_ODOO
 printf "\n Here are the branch of this repository:\n"
@@ -60,11 +65,6 @@ git checkout $BRANCH
 printf "Update from remote repository\n"
 git pull origin $BRANCH
 
-##-- update the ophodoo-admin.sh rep
-echo "Update the ophodoo-admin.sh git repository\n"
-printf "Update from remote repository\n"
-cd $HOMEDIR/$REP_ADMIN
-git pull origin master
 
 echo "Backing up the last running odoogoeen directory of the server, please wait..."
 sleep 3
