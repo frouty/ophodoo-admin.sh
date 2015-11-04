@@ -9,7 +9,7 @@
 # ---UTILISATION---
 # $cd /home/lof/ophodoo-admin.sh
 # $git pull origin master
-# $./preupdate.sh
+# $./pre_update_odoogoeen.sh
 # $su 
 # #./update_odoo.sh
 #
