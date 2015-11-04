@@ -1,7 +1,7 @@
 #! /bin/bash
 
 #////////////////////////////////////////////////////////////////////////////////////#
-# Script de sauvegarde complète d'OpenERP                                            #
+# Script de dump de la database                                                      #
 # Par Thierry Godin : 2013-06-23                                                     #
 # http://thierry-godin.developpez.com/                                               #
 # derniere MAJ : 2013-11-25                                                          #
@@ -61,7 +61,7 @@ echo 'Dump will be saved on:' $bckfile
 # pg_dump -Fc $dbname > $bckfile OK for dev machine not on prod server
 pg_dump -U $odoouser -Fc $dbname -h 127.0.0.1 > $bckfile
 # il faut specifier le -h car c'est en peer.
-#pour l'instant odooser est en trust 
+#pour l'instant odoouser est en trust 
 # il va falloir le changer.
 
 # show the dump and there size
