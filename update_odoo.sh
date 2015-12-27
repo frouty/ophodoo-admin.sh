@@ -59,6 +59,7 @@ service odoo-server stop
 echo "check if odoogoeen.last exist"
 if [ -d $SERVER_PATH/$SERVER_NAME.last];then
 rm -R $SERVER_PATH/$SERVER_NAME.last
+fi
 mv $SERVER_PATH/$SERVER_NAME/ $SERVER_PATH/$SERVER_NAME.last
 
 
