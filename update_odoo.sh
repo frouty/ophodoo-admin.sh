@@ -56,21 +56,25 @@ service odoo-server stop
 ##--
 # Move dir_server prod to dir_server prod last
 # so if there is a problem it's easy to go back
+echo "check if odoogoeen.last exist"
+if [ -d $SERVER_PATH/$SERVER_NAME.last];then
+rm -R $SERVER_PATH/$SERVER_NAME.last
 mv $SERVER_PATH/$SERVER_NAME/ $SERVER_PATH/$SERVER_NAME.last
 
 
 # then copy the repository
-echo "then copy the repository to the server path"
+echo "then copy the git repository to the server path"
 sleep 4
 rsync -avz --progress -h $REPOSITORY_PATH/$SERVER_NAME $SERVER_PATH/$SERVER_NAME
 
 
 ##--
 # recuperer le filestore
-#echo "copier filestore from $HOMEDIR/$SERVER_DIR/$SERVER_NAME.last/openerp/filestore to $HOMEDIR/$SERVER_DIR/$SERVER_NAME/openerp/"
+##--
 sleep 2
 echo "Copy filestore"
 rsync -avz --progress -h $SERVER_PATH/$SERVER_NAME.last/openerp/filestore $SERVER_PATH/$SERVER_NAME/openerp/
+
 ##--
 chown -R $USER_NAME:$USER_NAME $SERVER_PATH/$SERVER_NAME
 

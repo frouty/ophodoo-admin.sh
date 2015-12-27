@@ -15,7 +15,7 @@
 # with all the docs, odt, pdf ... for patients                                       #
 #                                                                                    #
 # Script à mettre en CHMOD : 0755 je ne sais pas                                     #
-# Et à exécuter sur le server en 'root' je ne sais pas                               #
+#                                                                                    #
 #                                                                                    #
 #   Utilisation :                                                                    #
 #   -------------                                                                    #
@@ -49,13 +49,13 @@ if [ "$EUID" -eq 0 ]; then
 	exit 1
 fi
 
-##-- update the ophodoo-admin.sh rep
-echo "Update the ophodoo-admin.sh git repository\n"
+##-- update the ophodoo-admin.sh git rep
+printf "Update the ophodoo-admin.sh git repository\n"
 printf "Update from remote repository\n"
 cd $HOMEDIR/$REP_ADMIN
 git pull origin master
 
-##-- update the odoo rep
+##-- update the odoo git rep
 cd $HOMEDIR/$REP_ODOO
 printf "Update the odoogoeen server\n"
 printf "Here are the branch of this repository:\n"
@@ -72,7 +72,7 @@ echo "Could take some times"
 sleep 3
 rsync -avz --progress -h $SERVER_PATH/$SERVER_NAME/ $HOMEDIR/$BCKDIR.$NOW
 
-echo -e "\nThe last odoogoeen server directories are:"
+echo -e "\nThe last odoogoeen server backup directories are:"
 ls -alh $HOMEDIR/$BCKDIR*
 
 echo -e "\nSize of the last backup odoogoeen directories are:"
@@ -82,7 +82,7 @@ echo -e "\nSize of the last bck filestore directory is:"
 du -h --summarize $HOMEDIR/$BCKDIR.$NOW/$FILESTORE_PATH
 
 echo -e "Now you can start the update script\n"
-echo "You may type"
-echo -e "\nsu"
+echo -e "You may type:\n"
+echo -e "su"
 echo -e "./update_odoo.sh"
 exit 0
