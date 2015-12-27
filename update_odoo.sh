@@ -56,13 +56,13 @@ service odoo-server stop
 ##--
 # Move dir_server prod to dir_server prod last
 # so if there is a problem it's easy to go back
-echo "check if odoogoeen.last exist"
-sleep 3
-if [ -d $SERVER_PATH/$SERVER_NAME.last];then
-rm -R $SERVER_PATH/$SERVER_NAME.last
-fi
-mv $SERVER_PATH/$SERVER_NAME $SERVER_PATH/$SERVER_NAME.last
-sleep 5
+#echo "check if odoogoeen.last exist"
+#sleep 3
+#if [ -d $SERVER_PATH/$SERVER_NAME.last];then
+#rm -R $SERVER_PATH/$SERVER_NAME.last
+#fi
+# mv $SERVER_PATH/$SERVER_NAME $SERVER_PATH/$SERVER_NAME.last
+#sleep 5
 
 # then copy the repository
 echo "then copy the git repository to the server path"
