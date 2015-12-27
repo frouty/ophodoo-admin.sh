@@ -67,7 +67,7 @@ service odoo-server stop
 # then copy the repository
 echo "then copy the git repository to the server path"
 sleep 4
-rsync -avz --progress -h $REPOSITORY_PATH/$SERVER_NAME $SERVER_PATH/$SERVER_NAME
+rsync -avz --progress -h $REPOSITORY_PATH/$SERVER_NAME $SERVER_PATH/
 
 
 ##--
