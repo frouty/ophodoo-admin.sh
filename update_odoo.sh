@@ -61,7 +61,7 @@ sleep 3
 if [ -d $SERVER_PATH/$SERVER_NAME.last];then
 rm -R $SERVER_PATH/$SERVER_NAME.last
 fi
-mv $SERVER_PATH/$SERVER_NAME/ $SERVER_PATH/$SERVER_NAME.last
+mv $SERVER_PATH/$SERVER_NAME $SERVER_PATH/$SERVER_NAME.last
 sleep 5
 
 # then copy the repository
