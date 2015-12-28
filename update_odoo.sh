@@ -56,6 +56,8 @@ service odoo-server stop
 ##--
 # Move dir_server prod to dir_server prod last
 # so if there is a problem it's easy to go back
+rsync -av --progress -h --remove-source-files $SERVER_PATH/$SERVER_NAME/ $SERVER_PATH/$SERVER_NAME.last
+
 #echo "check if odoogoeen.last exist"
 #sleep 3
 #if [ -d $SERVER_PATH/$SERVER_NAME.last];then
