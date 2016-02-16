@@ -59,10 +59,15 @@ service odoo-server stop
 #rsync -av --progress -h --remove-source-files $SERVER_PATH/$SERVER_NAME/ $SERVER_PATH/$SERVER_NAME.last
 echo "check if odoogoeen.last exist"
 sleep 3
-if [-d "$SERVER_PATH/$SERVER_NAME.last"];then
-rm -rf $SERVER_PATH/$SERVER_NAME.last
+if [ -d "$SERVER_PATH/$SERVER_NAME.last"]
+then
+	echo "$SERVER_PATH/$SERVER_NAME.last exist I remove it"
+	rm -rf $SERVER_PATH/$SERVER_NAME.last
+else
+	echo "$SERVER_PATH/$SERVER_NAME.last doesn't exist. We copy last odoogoeen server to $SERVER_PATH/$SERVER_NAME.last"
+	mv $SERVER_PATH/$SERVER_NAME $SERVER_PATH/$SERVER_NAME.last
 fi
-mv $SERVER_PATH/$SERVER_NAME $SERVER_PATH/$SERVER_NAME.last
+
 sleep 5
 
 # then copy the repository
