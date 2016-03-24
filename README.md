@@ -55,11 +55,15 @@ $su
 ```
 Mais on aimerait bien pouvoir se connecter en tant qu'utilisateur linux habituel. Il y a plusieurs facon de faire. 
 Pour permettre à des utilisateurs locaux d'accéder à la base de donnée il faut éditer /etc/postgresql/pg_hba.conf.
-Mais une fois qu'on a autorisé les users à entrer dans la database ils doivent aussi exiter dans la database pour pouvoir se connecter.
+Mais une fois qu'on a autorisé les users à entrer dans la database ils doivent aussi exister dans la database pour pouvoir se connecter.
 ```
 #su postgres
+
 #createuser unnomdeuser
 ```
+#su - postgres 
+$psql <nom d'une database>
+
 Postgres utilise les roles pour les authentifications et autorisations. Postgres après installation utilise "ident" pour
 l'identification c'est à dire que le mot de passe est le même que celui de linux.
 
