@@ -14,7 +14,7 @@ This is a collection of bash scripts that enable:
 
 
 
-il faut être root pour se loguer à postgres sans avoir à rentrer un password. Le compte Postgres Unix est vérouillé (aucun password ne marchera). Ce qui veut dire que seul root peut su vers ce compte.
+il faut être root pour se loguer à postgres sans avoir à rentrer un password. Le compte Postgres Unix est vérouillé (aucun password ne marchera). Ce qui veut dire que seul root peut <su> vers ce compte.
 ```
 $su
 #su - postgres
