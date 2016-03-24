@@ -2,12 +2,14 @@
 
 This is a collection of bash scripts that enable:
 
-#dump-oo.sh
- 
- dump-oo.sh : -* pg_dump of the database on the server. Must be run on the server.
-  rsync-filestore-backups.sh
-  -----------------------------------------
+##dump-oo.sh
+
+dump-oo.sh : -* pg_dump of the database on the server. Must be run on the server.
+
+##rsync-filestore-backups.sh
+
  rsync-filestore-backups.sh; -* backup the filestore directory in a remote backup server. 
+
  Must be run on the remote backup server.
  
  OpenERP_7_Admin.sh - one command line installation for OpenERP 7.0 server instances
