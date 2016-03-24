@@ -8,7 +8,7 @@ dump-oo.sh : -* pg_dump of the database on the server. Must be run on the server
 
 ##rsync-filestore-backups.sh
 
- rsync-filestore-backups.sh; -* backup the filestore directory in a remote backup server. 
+ **rsync-filestore-backups.sh**; -* backup the filestore directory in a remote backup server. 
 
  Must be run on the remote backup server.
  
