@@ -30,7 +30,7 @@ Au départ il y a un seul superuser password. Il vérouille la base de donnée e
 ALTER USER postgres WITH PASSWORD 'VeryVerySecret';
 ```
 ##service password.
-Postgres tourne sur un compte systeme spécial. Ce compte est créé lors de l'installation. Il s'appelle postgres. Dans linux ce compte est mis en place sans password. et il ne faut pas s'en occuper.
+Postgres tourne sur un compte système spécial. Ce compte est créé lors de l'installation. Il s'appelle postgres. Dans linux ce compte est mis en place sans password. et il ne faut pas s'en occuper.
 
 Au depart on ne peut pas se connecter à postgresql avec l'utilisateur postgres.
 
@@ -53,14 +53,14 @@ $su
 #psql unnomdedatabaseexistant (comme template0)
 ```
 Mais on aimerait bien pouvoir se connecter en tant qu'utilisateur linux habituel. Il y a plusieurs facon de faire. 
-Pour permettre à des utilisateurs locaux d'accéder à la base de donnée il faut éditer /etc/postgresql/pg_hba.conf
+Pour permettre à des utilisateurs locaux d'accéder à la base de donnée il faut éditer /etc/postgresql/pg_hba.conf.
 Mais une fois qu'on a autorisé les users à entrer dans la database ils doivent aussi exiter dans la database pour pouvoir se connecter.
 ```
 #su postgres
 #createuser unnomdeuser
 ```
-Postgres utilise les roles pour les authentifacation et autorisation. Postgres apres installation utilise "ident" pour
-l'indentification c'est à dire que le mot de passe est le meme que celui de linux.
+Postgres utilise les roles pour les authentifications et autorisations. Postgres après installation utilise "ident" pour
+l'indentification c'est à dire que le mot de passe est le même que celui de linux.
 
 * pour connaitre la liste des roles: \\du
 * pour connaiter la liste des tables: \dt
