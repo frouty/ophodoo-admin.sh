@@ -1,8 +1,9 @@
 #ophodoo-admin
-=============
+
 This is a collection of bash scripts that enable:
-dump-oo.sh
- ------------------
+
+#dump-oo.sh
+ 
  dump-oo.sh : -* pg_dump of the database on the server. Must be run on the server.
   rsync-filestore-backups.sh
   -----------------------------------------
