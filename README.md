@@ -13,7 +13,8 @@ This is a collection of bash scripts that enable:
  of a testing serv
 
 
-
+#Administration de postgresql
+##Les utilisateurs
 il faut être root pour se loguer à postgres sans avoir à rentrer un password. Le compte Postgres Unix est vérouillé (aucun password ne marchera). Ce qui veut dire que seul root peut `su` vers ce compte.
 ```
 $su
@@ -23,8 +24,8 @@ ou
 ```
 $sudo su - postgres
 ```
-#les passwords dans postgresq
-##superuser password
+##les passwords dans postgresq
+###superuser password
 Au départ il y a un seul superuser password. Il vérouille la base de donnée elle même. Il est mis en place pendant l'installation initiale. Et on peut le changer avec pgadmin ou avec une requete SQL:
 ```
 ALTER USER postgres WITH PASSWORD 'VeryVerySecret';
@@ -45,7 +46,7 @@ postgres=#\password postgres
 
 ------
 
-Par defaut on peut se connecter à postgres si username est le meme que le postgres username.
+Par defaut on peut se connecter à postgres si username  de l'utilisateur linux est le même que le postgres username.
 Pour se connecter à la base de donnée la seule facon de faire c'est:
 ```
 $su
@@ -60,16 +61,16 @@ Mais une fois qu'on a autorisé les users à entrer dans la database ils doivent
 #createuser unnomdeuser
 ```
 Postgres utilise les roles pour les authentifications et autorisations. Postgres après installation utilise "ident" pour
-l'indentification c'est à dire que le mot de passe est le même que celui de linux.
+l'identification c'est à dire que le mot de passe est le même que celui de linux.
 
 * pour connaitre la liste des roles: \\du
-* pour connaiter la liste des tables: \dt
+* pour connaitre la liste des tables: \dt
 * pour connaitre la liste des database: \l
 * pour se connecter à une autre database: \c 
 * pour avoir des infos sur la connection : \conninfo
 
 
-Comment faire un dump sur le server?
+##Comment faire un dump sur le server?
 ```
 lof$ pg_dump -Fc goeen001 > test.dump ne marche pas.
 ```
