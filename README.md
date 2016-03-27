@@ -112,7 +112,10 @@ du fichier pg_hba.conf qui est utilisée
 ## service postgresql status
 mais ne donne pas le port 
 ## pour connaitre le port sur lequel écoute le seveur postgresl
-```netstat -natup | grep post``
+```
+netstat -natup | grep post
+```
 ##plus simple
+```
 pg_isready
-
+```
