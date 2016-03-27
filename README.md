@@ -31,7 +31,7 @@ Au départ il y a un seul superuser password. Il vérouille la base de donnée e
 ALTER USER postgres WITH PASSWORD 'VeryVerySecret';
 ```
 ##service password.
-Postgres tourne sur un compte système spécial. Ce compte est créé lors de l'installation. Il s'appelle postgres. Dans linux ce compte est mis en place sans password. et il ne faut pas s'en occuper.
+Postgresql tourne sur un compte système spécial. Ce compte est créé lors de l'installation. Il s'appelle postgres. Dans linux ce compte est mis en place sans password. et il ne faut pas s'en occuper.
 
 Au depart on ne peut pas se connecter à postgresql avec l'utilisateur postgres.
 
@@ -65,6 +65,7 @@ Comment supprimer un role:
 ```
 DROP ROLE IF EXISTS nom_de_role
 ```
+Les roles se trouvent dans la table : **pg_roles**
 ```
 #su - postgres 
 $psql <nom d'une database>
@@ -95,3 +96,20 @@ si je mets dans pg_hba.conf
 host    all             openerp             127.0.0.1/32            trust
 ```
 si je mets md5 ca ne marche pas.
+
+## Comment connaitre sa version de postgresql?
+```
+#select version();
+```
+
+## pg_lscluster
+## pg_conftool show all
+## pg_isready -h localhost -p 5432(5433)
+Quand on utilise psql sans donner de nom de machine ou ip avec -h, il passe par le socket c'est donc la ligne # "local" is for Unix domain socket connections only 
+du fichier pg_hba.conf qui est utilisée
+
+# Comment savoir si le serveur postgresql est actif
+## service postgresql status
+mais ne donne pas le port 
+## pour connaitre le port sur lequel écoute le seveur postgresl
+### netstat -natup | grep post
