@@ -109,9 +109,9 @@ Quand on utilise psql sans donner de nom de machine ou ip avec -h, il passe par 
 du fichier pg_hba.conf qui est utilisée
 
 # Comment savoir si le serveur postgresql est actif
-## service postgresql status
+##service postgresql status
 mais ne donne pas le port 
-## pour connaitre le port sur lequel écoute le seveur postgresl
+##pour connaitre le port sur lequel écoute le seveur postgresl
 ```
 netstat -natup | grep post
 ```
