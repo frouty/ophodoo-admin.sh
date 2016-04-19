@@ -81,8 +81,11 @@ du -h --summarize $HOMEDIR/$BCKDIR*/
 echo -e "\nSize of the last bck filestore directory is:"
 du -h --summarize $HOMEDIR/$BCKDIR.$NOW/$FILESTORE_PATH
 
-echo -e "Now you can start the update script\n"
-echo -e "You may type:\n"
+echo -e "\nNow you can start the update script\n"
+echo -e "For that, you may type:\n"
 echo -e "su"
 echo -e "./update_odoo.sh"
+echo -e "You will update to the : $BRANCH branch"
+
+
 exit 0

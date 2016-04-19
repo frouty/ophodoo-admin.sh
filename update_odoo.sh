@@ -62,9 +62,11 @@ sleep 3
 if [ -d "$SERVER_PATH/$SERVER_NAME.last" ]
 then
 	echo "$SERVER_PATH/$SERVER_NAME.last exist I remove it"
+	sleep 5
 	rm -rf $SERVER_PATH/$SERVER_NAME.last
 else
 	echo "$SERVER_PATH/$SERVER_NAME.last doesn't exist. We copy last odoogoeen server to $SERVER_PATH/$SERVER_NAME.last"
+	sleep 5
 	mv $SERVER_PATH/$SERVER_NAME $SERVER_PATH/$SERVER_NAME.last
 fi
 
