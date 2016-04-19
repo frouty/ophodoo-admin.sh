@@ -1,8 +1,8 @@
 #!/bin/bash
 HOME=${HOME}
 
-printf '%s ' 'Which fruit do you like most?'
-read -${BASH_VERSION+e}r fruit
+printf '%s ' 'Which fruits do you like most?'
+read -${BASH_VERSION+e}r fruit 
 
 case $fruit in
     apple)
