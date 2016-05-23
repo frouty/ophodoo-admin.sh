@@ -85,6 +85,7 @@ echo -e "\nNow you can start the update script\n"
 echo -e "For that, you may type:\n"
 echo -e "su"
 echo -e "./update_odoo.sh"
+echo -e "You will update to the : ? branch"
 echo -e "You will update to the : $BRANCH branch"
 
 
