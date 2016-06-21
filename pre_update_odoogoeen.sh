@@ -62,10 +62,18 @@ printf "Here are the branch of this repository:\n"
 git branch -v
 ## --chose the branch
 read -p "Choose the branch you want to use for update: " BRANCH
-git checkout $BRANCH
-printf "Update from remote repository\n"
-git pull origin $BRANCH
-
+## --check that branch exist in the local repository
+git branch | grep -w $BRANCH > /dev/null
+if [ $? = 0 ]
+then
+  echo "branch exists"
+  git checkout $BRANCH
+  git branch
+  printf "Update from remote repository\n"
+  git pull origin $BRANCH
+else
+  echo "branch doesn't exist"
+fi
 
 echo "Backing up the last running odoogoeen directory of the server, please wait..."
 echo "Could take some times"
