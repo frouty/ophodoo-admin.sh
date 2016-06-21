@@ -70,6 +70,10 @@ else
 	mv $SERVER_PATH/$SERVER_NAME $SERVER_PATH/$SERVER_NAME.last
 fi
 
+##--
+echo "check that the filestore filesystem exist"
+echo "with all the files attachment
+tree $SERVER_PATH/$SERVER_NAME.last/openerp/filestore
 sleep 5
 
 # then copy the repository
