@@ -24,7 +24,7 @@ SCRIPT_DIR='ophodoo-admin.sh'
 SERVER_NAME='odoogoeen'
 REPOSITORY_PATH='/home/lof'
 SERVER_PATH='/home/lof/ODOO'
-USER_NAME='openerp'
+ODOO_USER='openerp'
 
 SERVER_BCK='backup'
 ##--
@@ -65,7 +65,7 @@ then
 	sleep 5
 	rm -rf $SERVER_PATH/$SERVER_NAME.last
 else
-	echo "$SERVER_PATH/$SERVER_NAME.last doesn't exist. We copy last odoogoeen server to $SERVER_PATH/$SERVER_NAME.last"
+	echo "$SERVER_PATH/$SERVER_NAME.last doesn't exist. We move last odoogoeen server to $SERVER_PATH/$SERVER_NAME.last"
 	sleep 5
 	mv $SERVER_PATH/$SERVER_NAME $SERVER_PATH/$SERVER_NAME.last
 fi
@@ -73,6 +73,8 @@ fi
 sleep 5
 
 # then copy the repository
+# but there is no filestore with all the attachment files 
+# in the repository
 echo "then copy the git repository to the server path"
 sleep 4
 rsync -avz --progress -h $REPOSITORY_PATH/$SERVER_NAME $SERVER_PATH/
@@ -84,9 +86,7 @@ rsync -avz --progress -h $REPOSITORY_PATH/$SERVER_NAME $SERVER_PATH/
 sleep 2
 echo "Copy filestore"
 rsync -avz --progress -h $SERVER_PATH/$SERVER_NAME.last/openerp/filestore $SERVER_PATH/$SERVER_NAME/openerp/
-
-##--
-chown -R $USER_NAME:$USER_NAME $SERVER_PATH/$SERVER_NAME
+chown -R $ODOO_USER:$ODOO_USER $SERVER_PATH/$SERVER_NAME
 
 #relancer le service
 echo '-- Start odoo-server --'

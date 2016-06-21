@@ -58,6 +58,7 @@ REMOTE=$(git rev-parse @{u})
 BASE=$(git merge-base @ @{u})
 
 if [ $LOCAL = $REMOTE ]; then
+	pwd
     echo "Up-to-date"
     echo "Keep on"
 elif [ $LOCAL = $BASE ]; then
