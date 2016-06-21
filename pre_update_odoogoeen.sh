@@ -67,7 +67,7 @@ git checkout ${BRANCH}
 ## --check on what branch we are
 printf "We are now on branch:"
 git branch
-exit 1
+## -- 
 echo "Backing up the last running odoogoeen directory of the server, please wait..."
 echo "Could take some times"
 sleep 3
