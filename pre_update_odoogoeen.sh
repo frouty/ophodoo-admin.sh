@@ -67,7 +67,7 @@ git checkout ${BRANCH}
 ## --check on what branch we are
 printf "We are now on branch:"
 git branch
-
+exit 0
 echo "Backing up the last running odoogoeen directory of the server, please wait..."
 echo "Could take some times"
 sleep 3
@@ -86,8 +86,9 @@ echo -e "\nNow you can start the update script\n"
 echo -e "For that, you may type:\n"
 echo -e "su"
 echo -e "./update_odoo.sh"
-echo -e "You will update to the : ? branch"
-echo -e "You will update to the : $BRANCH branch"
+echo -e "You will update to the :"
+cd $HOMEDIR/$REP_ODOO
+git branch
 
 
 exit 0
