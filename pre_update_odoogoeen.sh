@@ -50,10 +50,32 @@ if [ "$EUID" -eq 0 ]; then
 fi
 
 ##-- update the ophodoo-admin.sh git rep
-printf "Update the ophodoo-admin.sh git repository\n"
-printf "Update from remote repository\n"
+## -- check if it's update
 cd $HOMEDIR/$REP_ADMIN
-git pull origin master
+
+LOCAL=$(git rev-parse @)
+REMOTE=$(git rev-parse @{u})
+BASE=$(git merge-base @ @{u})
+
+if [ $LOCAL = $REMOTE ]; then
+    echo "Up-to-date"
+    echo "Keep on"
+elif [ $LOCAL = $BASE ]; then
+    echo "Need to pull"
+    echo "I'll do it for you"
+    echo "But you must restart this script"
+    git pull origin master
+    exit 1
+elif [ $REMOTE = $BASE ]; then
+    echo "Need to push"
+    echo "exiting"
+    exit 1
+else
+    echo "Diverged"
+    echo "exiting"
+    exit 1
+fi
+
 
 	##-- update the odoo git rep
 cd $HOMEDIR/$REP_ODOO
