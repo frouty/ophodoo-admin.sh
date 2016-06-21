@@ -55,25 +55,18 @@ printf "Update from remote repository\n"
 cd $HOMEDIR/$REP_ADMIN
 git pull origin master
 
-##-- update the odoo git rep
+	##-- update the odoo git rep
 cd $HOMEDIR/$REP_ODOO
 printf "Update the odoogoeen server\n"
-printf "Here are the branch of this repository:\n"
-git branch -v
+git fetch origin
+printf "Here are the branch:\n"
+git branch -a
 ## --chose the branch
 read -p "Choose the branch you want to use for update: " BRANCH
-## --check that branch exist in the local repository
-git branch | grep -w $BRANCH > /dev/null
-if [ $? = 0 ]
-then
-  echo "branch exists"
-  git checkout $BRANCH
-  git branch
-  printf "Update from remote repository\n"
-  git pull origin $BRANCH
-else
-  echo "branch doesn't exist"
-fi
+git checkout ${BRANCH}
+## --check on what branch we are
+printf "We are now on branch:"
+git branch
 
 echo "Backing up the last running odoogoeen directory of the server, please wait..."
 echo "Could take some times"

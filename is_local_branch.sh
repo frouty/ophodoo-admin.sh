@@ -1,4 +1,9 @@
 #!/bin/bash
+
+#--
+# check if the branch exist in the rep
+#--
+
 cd $HOME/odoogoeen
 git branch | grep -w $1 > /dev/null
 
