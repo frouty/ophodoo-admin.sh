@@ -119,3 +119,12 @@ netstat -natup | grep post
 ```
 pg_isready
 ```
+
+
+Comment faire des rotations de fichiers et de directory
+
+https://pypi.python.org/pypi/rotate-backups#features
+à installer avec:
+pip install rotate-backups
+
+et je n'ai pas testé mais cela à l'air pas mal.
