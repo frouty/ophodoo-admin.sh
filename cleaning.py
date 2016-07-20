@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 # Script to clean a directory
+# where all the odt attachment are saved with ODDO client.
 
 
 #
