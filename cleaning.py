@@ -30,7 +30,7 @@ patterns = ['BDS[ ]Remise[ ]Chq*',
           'OCT[ ]Report*',
           'Single[ ]Vision*',
           'Fiche[ ]Liaison*',
-          'Memo[ ]de[]rendez[ ]vous*',
+          'Memo[ ]de[ ]rendez[ ]vous*',
           'Ordonnance[ ]IVT*',
           'Operating[ ]Room[ ]Report*',
           'Prescription[ ]OR*',
@@ -38,7 +38,8 @@ patterns = ['BDS[ ]Remise[ ]Chq*',
           'Medication[ ]Report*',
           'Plain[ ]Report[ ]Small[ ]Font*',
           'PKE[ ]ICP[ ]Report*',
-          'Precription[ ]OR*']
+          'Precription[ ]OR*',
+          ]
 
 WORKING_DIR = os.path.expanduser('~') + '/JANV16'
 logger.info('le working dir is: %s', WORKING_DIR)
