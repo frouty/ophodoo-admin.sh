@@ -2,6 +2,9 @@
 ##############################################################################
 # Script to clean a directory
 # where all the odt attachment are saved with ODDO client.
+# how to use it
+# cd oph_admin.sh
+#./cleaning.py
 
 
 #
@@ -41,7 +44,7 @@ patterns = ['BDS[ ]Remise[ ]Chq*',
           'Precription[ ]OR*',
           ]
 
-WORKING_DIR = os.path.expanduser('~') + '/JANV16'
+WORKING_DIR = os.path.expanduser('~') + '/NOV16'
 logger.info('le working dir is: %s', WORKING_DIR)
 
 for pattern in patterns:
