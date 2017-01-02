@@ -72,7 +72,7 @@ fi
 
 ##--
 echo "check that the filestore filesystem exist"
-echo "with all the files attachment
+echo "with all the files attachment"
 tree $SERVER_PATH/$SERVER_NAME.last/openerp/filestore
 sleep 5
 
