@@ -39,9 +39,14 @@ patterns = ['BDS[ ]Remise[ ]Chq*',
           'Plain[ ]Report[ ]Small[ ]Font*',
           'PKE[ ]ICP[ ]Report*',
           'Precription[ ]OR*',
+          'Near[ ]Vision[ ]Glasses*',
+          'Planning[ ]Notification*',
+          'Reading[ ]Glasses*',
+          'Check[ ]List[ ]Block[ ]Agenda*',
+          'Hospit[ ]Reporting*',
           ]
 
-WORKING_DIR = os.path.expanduser('~') + '/JANV16'
+WORKING_DIR = os.path.expanduser('~') + '/lundi'
 logger.info('le working dir is: %s', WORKING_DIR)
 
 for pattern in patterns:
