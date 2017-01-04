@@ -90,13 +90,18 @@ rsync -avz --progress -h $REPOSITORY_PATH/$SERVER_NAME $SERVER_PATH/
 sleep 2
 echo "Copy filestore"
 rsync -avz --progress -h $SERVER_PATH/$SERVER_NAME.last/openerp/filestore $SERVER_PATH/$SERVER_NAME/openerp/
+
+##--
+# change owner
+##--
+echo " change user : $ODOO_USER and group: $ODOO_USER owner"
 chown -R $ODOO_USER:$ODOO_USER $SERVER_PATH/$SERVER_NAME
 
 #relancer le service
 echo '-- Start odoo-server --'
 service odoo-server start
 ##--
-echo '-- log file -- '
+echo '-- log file --'
 tail -f $LOG_PATH/$LOG_FILE
 
 exit 0
