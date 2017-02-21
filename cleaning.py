@@ -52,7 +52,7 @@ patterns = ['BDS[ ]Remise[ ]Chq*',
           ]
 
 
-WORKING_DIR = os.path.expanduser('~') + '/NOV16'
+WORKING_DIR = os.path.expanduser('~') + '/FEV17'
 
 logger.info('le working dir is: %s', WORKING_DIR)
 
