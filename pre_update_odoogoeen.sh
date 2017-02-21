@@ -90,6 +90,11 @@ git checkout ${BRANCH}
 ## --check on what branch we are
 printf "We are now on branch:"
 git branch
+## --git status of server repository
+echo "status of git repository $SERVER_NAME 
+git status
+##
+git pull origin 
 ## -- 
 echo "Backing up the last running odoogoeen directory of the server, please wait..."
 echo "Could take some times"

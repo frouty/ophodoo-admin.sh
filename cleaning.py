@@ -5,6 +5,7 @@
 # how to use it
 # cd oph_admin.sh
 # ./cleaning.py
+# comme cela ça ne marche pas mais ca marche dans eclipse: run as...
 
 
 #
@@ -46,6 +47,7 @@ patterns = ['BDS[ ]Remise[ ]Chq*',
           'Planning[ ]Notification*',
           'Reading[ ]Glasses*',
           'Check[ ]List[ ]Block[ ]Agenda*',
+          'Bloc[ ]Agenda[ ]Report*',
           'Hospit[ ]Reporting*',
           ]
 
