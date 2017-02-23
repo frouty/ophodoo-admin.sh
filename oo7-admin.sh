@@ -96,10 +96,12 @@ install)
 		echo -e "\n---- Install python debian packages ----"
 		aptitude install python-dateutil python-docutils python-feedparser \
 		python-gdata python-jinja2 python-ldap python-libxslt1 python-lxml python-mako \
-		python-mock python-openid python-psycopg2 python-psutil python-pybabel \
-		python-pychart python-pydot python-pyparsing python-reportlab python-simplejson \
+		python-mock python-openid python-psycopg2 python-psutil python-pychart \ 
+		python-pydot python-pyparsing python-reportlab python-simplejson \
 		python-tz python-unittest2 python-vatnumber python-vobject python-webdav \
-		python-werkzeug python-xlwt python-yaml python-zsi python2.7-arrow
+		python-werkzeug python-xlwt python-yaml python-zsi python2.7-arrow python-psycopg2 \
+		python-babel python-dateutil python-uno python-arrow python-paramiko python-nltk \ 
+		python-markdown
 		
 		echo -e "\n---- Install python libraries ----"
 		pip install gdata
