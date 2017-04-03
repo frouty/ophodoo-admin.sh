@@ -49,6 +49,8 @@ patterns = ['BDS[ ]Remise[ ]Chq*',
           'Check[ ]List[ ]Block[ ]Agenda*',
           'Bloc[ ]Agenda[ ]Report*',
           'Hospit[ ]Reporting*',
+          'Request[ ]Bizone*',
+          'Fluoresceine[ ]Angiography[ ]Report',
           ]
 
 
