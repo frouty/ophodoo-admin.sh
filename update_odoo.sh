@@ -1,6 +1,7 @@
 #!/bin/bash
 #-----------------------
 #update the version of odoo
+
 #Utiliser des chemins absolu pour les dossiers et des chemins relatif pour les nom de 
 #$CHEMIN_DU_DOSSIER/$NOM_DU_FICHIER
 #
@@ -18,7 +19,12 @@
 #suffixe=$(date +%F_%T) ---> 2015-02-07_10:20:37
 #cp -a /home/lfs/odoogoeen /usr/odoogoeen-$(date +F_%T)
 #-----------------------
-
+## Je pense qu'il faut revoir
+## le probleme avec le filestore c'est parce que je fais un copy du repository du serveur.
+## Je pense que ce n'est pas la peine 
+## faire plutot un git pull origin prod. 
+## et c'est tout cela garde le filestore. 
+## Mais il ne faut pas faire de git push sinon cela va mettre le bordel.
 ##--
 SCRIPT_DIR='ophodoo-admin.sh'
 SERVER_NAME='odoogoeen'
@@ -67,9 +73,12 @@ then
 else
 	echo "$SERVER_PATH/$SERVER_NAME.last doesn't exist. We move last odoogoeen server to $SERVER_PATH/$SERVER_NAME.last"
 	sleep 5
-	mv $SERVER_PATH/$SERVER_NAME $SERVER_PATH/$SERVER_NAME.last
+	mv $SERVER_PATH/$SERVER_NAME/ $SERVER_PATH/$SERVER_NAME.last
 fi
 
+## c'est tres rapide un mv sur un directory mais j'ai l'impression que cela ne fait pas ce que je pensais.
+## le / en fin de chemin est tres important sinon c'est imbriqué.
+## $SERVER_PATH/$SERVER_NAME/ $SERVER_PATH/$SERVER_NAME.last ne doit pas exister sinon c'est imbriqué.
 ##--
 echo "check that the filestore filesystem exist"
 echo "with all the files attachment"
