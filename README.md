@@ -13,8 +13,8 @@ This is a collection of bash scripts that enable:
  of a testing serv
 
 
-#Administration de postgresql
-##Les utilisateurs
+# Administration de postgresql
+## Les utilisateurs
 il faut être root pour se loguer à postgres sans avoir à rentrer un password. Le compte Postgres Unix est vérouillé (aucun password ne marchera). Ce qui veut dire que seul root peut `su` vers ce compte.
 ```
 $su
@@ -109,19 +109,19 @@ Quand on utilise psql sans donner de nom de machine ou ip avec -h, il passe par 
 du fichier pg_hba.conf qui est utilisée
 
 # Comment savoir si le serveur postgresql est actif
-##service postgresql status
-mais ne donne pas le port 
-##pour connaitre le port sur lequel écoute le seveur postgresl
+`service postgresql status` 
+mais ne donne pas le port  
+## pour connaitre le port sur lequel écoute le seveur postgresl
 ```
 netstat -natup | grep post
 ```
-##plus simple
+## plus simple
 ```
 pg_isready
 ```
 
 
-Comment faire des rotations de fichiers et de directory
+# Comment faire des rotations de fichiers et de directory
 
 https://pypi.python.org/pypi/rotate-backups#features
 à installer avec:
