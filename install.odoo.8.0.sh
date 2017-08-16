@@ -9,3 +9,6 @@ aptitude show libxml2-dev
 aptitude install postgresql-server-dev-X.Y
 aptitude install libldap2-dev
 aptitude install libsasl2-dev 
+
+# pour le rt5100
+aptitude install python-netifaces
