@@ -19,5 +19,6 @@
 	<natures>
 		<nature>net.sourceforge.shelled.core.nature</nature>
 		<nature>org.python.pydev.pythonNature</nature>
+		<nature>org.eclipse.dltk.sh.core.nature</nature>
 	</natures>
 </projectDescription>
