@@ -22,9 +22,27 @@
 
 
 
-
+#-------------------
 ## fixed var
+#-------------------
 TEMP="/home/lof/tempo"
+
+##openerp
+OE_USER="odoo"
+OE_HOME="/opt/$OE_USER"
+
+##Enter version for checkout 7.0 for version  7.0 
+##8.0 for version 8.0
+OE_VERSION="8.0"
+
+##------------
+## Install postgresql
+##------------
+echo -e "\n---Install Postgresql Server"
+sudo apt-get install postgresql -y
+
+
+
 
 
 ## Installation de aeroo lib
