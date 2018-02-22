@@ -28,6 +28,7 @@ case "$1" in
 		aptitude install sudo apt-get install python-cups python-dateutil python-decorator python-docutils python-feedparser python-gdata python-geoip python-gevent python-imaging python-jinja2 python-ldap python-libxslt1
 python-lxml python-mako python-mock python-openid python-passlib python-psutil python-psycopg2 python-pybabel python-pychart python-pydot python-pyparsing python-pypdf python-reportlab python-requests \
 python-simplejson python-tz python-unicodecsv python-unittest2 python-vatnumber python-vobject python-werkzeug python-xlwt python-yaml wkhtmltopdf
+python-decorator python-pypdf wkhtmltopdf python-passlib
 
 #		echo -e "\n---- install the google data python library: gdata ----"
 #		pip install gdata
