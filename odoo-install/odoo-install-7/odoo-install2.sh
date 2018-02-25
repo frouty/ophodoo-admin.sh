@@ -1,6 +1,8 @@
 #!/bin/bash
 ################################################################################
-# Script for Installation: ODOO 8.0 on Debian 9
+#DO NOT USE THIS SCRIPT  AS IT IS
+exit 1 
+#Script for Installation: ODOO 8.0 on Debian 9
 # Author: Laurent FRANCOIS
 # email: francois.oph@gmail.com
 # 
@@ -75,6 +77,8 @@ if [[ -d /opt/$OE_USR$OE_VERSION ]];
 then
 	sudo rm -r /opt/$OE_USR$OE_VERSION
 fi 
+
+
 
 ## Installation de aeroo lib
 echo -e "\n---- Install aeroo lib ----"
