@@ -98,6 +98,7 @@ git pull origin
 ## -- 
 echo "Backing up the last running odoogoeen directory of the server, please wait..."
 echo "Could take some times"
+## c'est de plus en plus long car il y le filestore qui grossi.
 sleep 3
 rsync -avz --progress -h $SERVER_PATH/$SERVER_NAME/ $HOMEDIR/$BCKDIR.$NOW
 
