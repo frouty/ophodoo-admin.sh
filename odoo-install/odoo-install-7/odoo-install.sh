@@ -26,6 +26,12 @@ echo -e "\n---- Create ODOO system user ----"
 sudo adduser --system --quiet --shell=/bin/bash --home=$OE_HOME --gecos 'ODOO' --group $OE_USER
 
 echo -e "\n---- Create Log directory ----"
+if [[ -d  /var/log/$OE_USER ]];
+	echo -e "\n--- /var/log/$OE_USER exist ---"
+	echo -e "\n--- I remove it ---"
+	then sudo rm -rf  /var/log/$OE_USER
+fi
+echo -e "\n--- Creating /var/log/$OE_USER directory ---"
 sudo mkdir /var/log/$OE_USER
 sudo chown $OE_USER:$OE_USER /var/log/$OE_USER
 
@@ -50,7 +56,7 @@ fi
 ##/opt/odoo/odoo7/custom/addons
 ## /opt/odoo/odoo8/odoo8-server
 ##/opt/odoo8/custom/addons
-## Install server odoo in /opt/$OE_USER/$OE_USER$OE_VERSION/$OE_USER$OE_VERSION-server
+## Install server odoo in /opt/$OE_USER/$OE_USR$OE_VERSION/$OE_USR$OE_VERSION-server
 ## install customs addons  in /opt/$OE_USER/$OE_USER$OE_VERSION/custom/addons
 ##
 echo -e "\n--- making file system for odoo"
