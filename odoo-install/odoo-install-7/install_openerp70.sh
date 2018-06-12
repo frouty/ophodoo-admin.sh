@@ -2,7 +2,7 @@
 ################################################################################
 #DO NOT USE THIS SCRIPT  AS IT IS
 #exit 1 
-#Script for Installation: ODOO 8.0 on Debian 9
+#Script for Installation: ODOO 7.0 on Debian 9
 # Author: Laurent FRANCOIS
 # email: francois.oph@gmail.com
 # 
@@ -23,27 +23,26 @@
 # odoo-install
 #
 # EXAMPLE:
-# ./odoo-install 
+# ./install_openerp70.sh
 #
 # 
 ################################################################################
 
-## --------
-## fixed var
-## --------
-TEMP="/home/lof/tempo"
 ##openerp
 OE_USR="odoo"
 OE_HOME="/opt/$OE_USR"
+OE_VERSION=7
 OE_CONFIG="$OE_USR$OE_VERSION-server" # ie : odoo7-server
+## --
 OE_PORT="8069"
 OE_SUPERADMIN="admin"
+##--
 
 ## create ODOO system usr 
 ## gecos is a comment field for user.
 echo -e "\n---- Create ODOO system user ----"
 sudo adduser --system --quiet --shell=/bin/bash --home=$OE_HOME --gecos 'ODOO' --group $OE_USR >> ./install_log
-
+	
 ## create log directory
 echo -e "\n---- Create Log directory ----"
 if [[ -d  /var/log/$OE_USR ]];
@@ -53,23 +52,7 @@ if [[ -d  /var/log/$OE_USR ]];
 fi
 echo -e "\n--- Creating /var/log/$OE_USR directory ---"
 sudo mkdir /var/log/$OE_USR >> ./install_log
-sudo chown $OE_USER:$OE_USR /var/log/$OE_USER
-
-##Enter version for checkout 7.0 for version  7.0 
-## 8 for version 8.0
-## OE_VERSION=8
-echo -e "\n---Enter the ODOO version you want---"
-echo -e "---should be 7 or 8---"
-read OE_VERSION
-if [ "$OE_VERSION" != "8" ] && [ "$OE_VERSION" != "7" ];
-	then 
-		echo -e "\n---- you enter $OE_VERSION---"
-		echo -e "---- please enter 8 or 7. nothing else----"
-		echo -e "---- bye for now. Start again---"
-		exit 1
-	else
-		echo -e "\n---- So let's install V$OE_VERSION.0"
-fi
+sudo chown $OE_USR:$OE_USR /var/log/$OE_USR
 
 ## check internet connection
 echo -e "\n--- Check internet connection ---" 
@@ -88,7 +71,6 @@ fi
 ## ----------
 ## install dependencies
 ## ----------
-
 sudo aptitude update && sudo aptitude full-upgrade -y
 sudo apt-get build-dep build-essential -y
 
@@ -103,7 +85,8 @@ sudo apt-get install postgresql -y >> ./install_log
 
 ## --- Create the odoo Postgresql user ----
 echo -e "\n---- Creating the ODOO PostgreSQL User  ----"
-su - postgres -c "createuser -s $OE_USER" 2> /dev/null || true
+sudo su - postgres -c "createuser -s $OE_USR" 2> /dev/null || true
+## peut etre les droits sont trop hauts avec cette commande
 
 ## install git
 echo -e "\n---- Install git ----"
@@ -115,7 +98,6 @@ python -m pip --version >> ./install_log
 echo -e "\n---- Upgrade pip version ----"
 sudo pip install --upgrade pip >> ./install_log
 python -m pip --version >> ./install_log
-
 
 ## /opt/odoo/
 #			- odoo7-server
@@ -133,8 +115,6 @@ then
 	sudo rm -rf $OE_HOME/$OE_USR$OE_VERSION  >>./install_log
 fi 
 sudo mkdir -p $OE_HOME/$OE_USR$OE_VERSION/custom/addons/  >> ./install_log
-
-
 ## Installation de aeroo lib
 echo -e "\n---- Install aeroo lib ----"
 echo -e "\n---- first Install libreoffice and some python libraries ----"
@@ -250,30 +230,6 @@ fi
 echo -e "\n---- End of AerooLib install---" 
 ## end of aeroolib install
 
-## install aeroodocs
-echo -e "\n---- Start aeroodocs  instal (see: https://github.com/aeroo/aeroo_docs/wiki/Installation-example-for-Ubuntu-14.04-LTS for original post):l ---"
-echo -e "---- Install some dependencies for aeroodocs---" 
-
-sudo apt-get install python3-pip >> ./install_log
-sudo pip3 install jsonrpc2 daemonize
-cd /opt/aeroo
-echo -e "---- Clone aeroo_docs ----"
-if [[ -d /opt/aeroo/aeroo_docs ]];
-then
-	sudo rm -r /opt/aeroo/aeroo_docs
-fi 
-sudo git clone https://github.com/aeroo/aeroo_docs.git
-sudo python3 /opt/aeroo/aeroo_docs/aeroo-docs start -c /etc/aeroo-docs.conf
-
-## If you encounter and error "Unable to lock on the pidfile while trying  just restart your server (sudo shutdown -r now) doesn't work
-## and try again after reboot.doesn't work for me.
-## If you encounter and error "Unable to lock on the pidfile while trying #16 just restart the service (sudo service aeroo-docs restart).
-	
-sudo ln -s /opt/aeroo/aeroo_docs/aeroo-docs /etc/init.d/aeroo-docs
-sudo update-rc.d aeroo-docs defaults
-sudo service aeroo-docs restart
-## end of aeroo_docs install
-
 ## --- Install odoo server ---- ##
 echo -e "\n---So let's install V$OE_VERSION.0"
 echo -e "\n---Cloning the github branch $OE_VERSION.0 of odoo ----"
@@ -286,8 +242,8 @@ then
 	echo -e "\n---- Removing =$E_HOME/$OE_USR$OE_VERSION-server directory ----"
 	sudo rm -rf $OE_HOME/$OE_USR$OE_VERSION-server 
 fi 
-		sudo mkdir -p $OE_HOME/$OE_USR$OE_VERSION-server
-        sudo git clone --branch $OE_VERSION.0 https://www.github.com/odoo/odoo.git $OE_USR$OE_VERSION-server 
+		sudo mkdir -p $OE_HOME/$OE_CONFIG-server
+        sudo git clone --branch $OE_VERSION.0 https://www.github.com/odoo/odoo.git $OE_CONFIG-server 
  # use the https url not the ssh github url else permission non accordée       	
         break;;
         [Nn]* ) break;;
@@ -295,6 +251,7 @@ fi
     esac
 done
 
+## Create a config file for odoo server
 #Install a config file 
 echo -e "* Create server config file"
 if [[ ! -d  /etc/$OE_USR ]];
@@ -302,115 +259,197 @@ if [[ ! -d  /etc/$OE_USR ]];
 fi
 cat <<EOF > /etc/$OE_USR/$OE_CONFIG-server.conf
 [options]
-## specify additional addons paths (separated by commas)' 
-addons_path = $OE_ADDONS_PATH
-## Admin password for creating, restoring and backing up databases admin_passwd = admin'
-admin_passwd =  $OE_SUPERADMIN
+addons_path = $OE_HOME/$OE_CONFIG-server/addons,$OE_HOME/$OE_CONFIG/custom/addons/aeroo, ,$OE_HOME/$OE_CONFIG/custom/addons/oph
+# addons_path = /home/lof/ODOO/odoogoeen/addons,/home/lof/ODOO/odoogoeen/extra-addons/aeroo,/home/lof/ODOO/odoogoeen/extra-addons/oph
+admin_passwd = sgcg40
 csv_internal_sep = ,
-data_dir = /var/lib/$OE_USR/.local/share/Odoo
 db_host = False
 db_maxconn = 64
 db_name = False
-db_password = False
+db_password = ark700a
 db_port = False
 db_template = template1
-db_user = $OE_USR
+db_user = openerp
 dbfilter = .*
 debug_mode = False
 demo = {}
 email_from = False
-geoip_database = /usr/share/GeoIP/GeoLiteCity.dat
-import_partial =
-limit_memory_hard = 2684354560
-limit_memory_soft = 2147483648
+# ftp_server_host HACK ME
+ftp_server_host = 10.66.0.249
+import_partial = 
+limit_memory_hard = 805306368
+limit_memory_soft = 671088640
 limit_request = 8192
 limit_time_cpu = 60
 limit_time_real = 120
 list_db = True
-log_db = False
-log_db_level = warning
 log_handler = [':INFO']
-# specify the level of the logging. Accepted values: info, debug_rpc, warn, test, critical, debug_sql, error, debug, debug_rpc_answer, notset' 
+## specify the level of the logging. Accepted values: info, debug_rpc, warn, test, critical, debug_sql, error, debug, debug_rpc_answer, notset' 
 log_level = info
-logfile = /var/log/$OE_USR/$OE_CONFIG
+logfile = /var/log/$OE_USR/$OE_USR-server.log
+login_message = False
 logrotate = True
-longpolling_port = 8072
-max_cron_threads = 1
+max_cron_threads = 2
+netrpc = False
+netrpc_interface = 127.0.0.1
+netrpc_port = 8070
 osv_memory_age_limit = 1.0
 osv_memory_count_limit = False
 pg_path = None
 pidfile = None
-proxy_mode = True
+proxy_mode = False
 reportgz = False
+secure_cert_file = server.cert
+secure_pkey_file = server.pkey
 server_wide_modules = None
 smtp_password = False
 smtp_port = 25
 smtp_server = localhost
 smtp_ssl = False
 smtp_user = False
-# Send the log to the syslog server'
+static_http_document_root = None
+static_http_enable = False
+static_http_url_prefix = None
 syslog = False
 test_commit = False
 test_enable = False
 test_file = False
 test_report_directory = False
+timezone = False
 translate_modules = ['all']
 unaccent = False
 without_demo = False
-workers = 2
+workers = 0
 xmlrpc = True
 xmlrpc_interface = 127.0.0.1
-xmlrpc_port = $OE_PORT
+xmlrpc_port = 8069
 xmlrpcs = True
 xmlrpcs_interface = 
 xmlrpcs_port = 8071
 
 EOF
+## --- Securing odoo-server.conf ----
 echo -e "\n---- Securing odoo-server conf file ----"
 chown $OE_USR:$OE_USR  /etc/$OE_USR/$OE_CONFIG-server.conf
 chmod 640 /etc/$OE_USR/$OE_CONFIG-server.conf
 
 
-## install aeroo Reports
-echo -e "--- clone Aeroo Reports Odoo Module:  ---"
-if [ "$OE_VERSION" != "8" ] && [ "$OE_VERSION" != "11" ];
-	then 
-		echo -e "\n---- you enter $OE_VERSION---"
-		echo -e "---- please enter 8. nothing else for Aeroo Report----"
-		echo -e "---- there is only branch 8.0 and 11.0 in the git repository ----"
-		echo -e "---- bye for now. Start again ----"
-		exit 1
-	else
-		echo -e "\n---- So let's install V$OE_VERSION.0"
-fi
-sudo apt-get install python-cups
-if [[ ! -d $OE_HOME/$OE_USR$OE_VERSION/custom/addons ]];
+## ---- Create an init file for odoo server -----
+echo -e "\n--- Make an init script for odoo server ---"
+cd $TEMP
+## The quoted form of "EOF" is important
+## it's for not interpreting the $
+## else you get the "$1" and "$2" replaced by the name of the script !
+## the second EOF do not have to be quoted.
+cat > odoo-server << 'EOF'
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:             odoo-server
+# Required-Start:       $remote_fs $syslog
+# Required-Stop:        $remote_fs $syslog
+# Should-Start:         $network
+# Should-Stop:          $network
+# Default-Start:        2 3 4 5
+# Default-Stop:         0 1 6
+# Short-Description:    Complete Business Application software
+# Description:          Odoo is a complete suite of business tools.
+# after creation: chmod 755 this file
+#		  chown root: this file
+# 		  update-rc.d this file defaults
+### END INIT INFO
+
+PATH=/bin:/sbin:/usr/bin
+OE_USR="odoo"
+OE_VERSION=7
+OE_CONFIG=$OE_USR$OE_VERSION-server
+DAEMON=$OE_HOME/$OE_CONFIG/openerp-server # look in the odoo repository
+NAME=odoo-server
+DESC=odoo-server
+
+# Specify the user name (Default: odoo).
+USER=odoo
+#USER=openerp
+
+# Specify an alternate config file (Default: /etc/odoo-server.conf).
+#CONFIGFILE="/etc/odoo-server.conf"
+CONFIGFILE="/etc/$OE_USR/$OE_CONFIG-server.conf"
+
+# pidfile
+PIDFILE=/var/run/$NAME.pid
+
+# Additional options that are passed to the Daemon.
+DAEMON_OPTS="-c $CONFIGFILE"
+
+[ -x $DAEMON ] || exit 0
+[ -f $CONFIGFILE ] || exit 0
+
+checkpid() {
+    [ -f $PIDFILE ] || return 1
+    pid=`cat $PIDFILE`
+    [ -d /proc/$pid ] && return 0
+    return 1
+}
+
+case "${1}" in
+        start)
+                echo -n "Starting ${DESC}: "
+
+                start-stop-daemon --start --quiet --pidfile ${PIDFILE} \
+                        --chuid ${USER} --background --make-pidfile \
+                        --exec ${DAEMON} -- ${DAEMON_OPTS}
+
+                echo "${NAME}."
+                ;;
+
+        stop)
+                echo -n "Stopping ${DESC}: "
+
+                start-stop-daemon --stop --quiet --pidfile ${PIDFILE} \
+                        --oknodo
+
+                echo "${NAME}."
+                ;;
+
+        restart|force-reload)
+                echo -n "Restarting ${DESC}: "
+
+                start-stop-daemon --stop --quiet --pidfile ${PIDFILE} \
+                        --oknodo
+      
+                sleep 1
+
+                start-stop-daemon --start --quiet --pidfile ${PIDFILE} \
+                        --chuid ${USER} --background --make-pidfile \
+                        --exec ${DAEMON} -- ${DAEMON_OPTS}
+
+                echo "${NAME}."
+                ;;
+
+        *)
+                N=/etc/init.d/${NAME}
+                echo "Usage: ${NAME} {start|stop|restart|force-reload}" >&2
+                exit 1
+                ;;
+esac
+exit 0
+EOF
+## End of init script.
+
+## as I didn't find the way to create this file in /etc/init.d directly I move it now
+echo -e "--- mv the script to /etc/init.d---"
+if [[ ! -e /etc/init.d/odoo-server ]]; 
 then
-	sudo mkdir -p $OE_HOME/$OE_USR$OE_VERSION/custom/addons
-fi 
-cd $OE_HOME/$OE_USR$OE_VERSION/custom/addons
-sudo git clone -b  $OE_VERSION.0 https://github.com/aeroo/aeroo_reports.git
-	
+	sudo mv $TEMP/odoo-server /etc/init.d/
+	sudo chmod +x /etc/init.d/odoo-server
+	sudo chmod 0755 /etc/init.d/odoo-server
+	sudo update-rc.d odoo-server defaults 
+	sudo service odoo-server start	
+else
+	echo -e "---/etc/init.d/odoo-server exist already. Do you want to overwrite it?---"
+fi
 
-#After following the (above) steps in this guide you should have Aeroo Reports installed correctly on your server for Ubuntu 14.04 and Odoo 8.0. You'll just need to create a database and install the required Aeroo reports modules you need for that database.
-#
-#[ ! ]    Do not have aeroo_report_sample in your addons directory or you will get an error message when updating module list:
-#         Warning! Unmet python dependencies! No module named cups
-#
-#Install report_aeroo module in Odoo database:
-#
-##31    Go to Settings >> Users >> Administrator in the backend of Odoo
-##32    Tick the box next to 'Technical Features' and Save, then refresh your browser window.
-##33    Go to Settings >> Update Modules List > Update
-##34    Go to Settings >> Local Modules > Search for: Aeroo
-##35    Install report_aeroo
-##36    You'll be confronted with an installation wizard, click: Continue >> Choose Simple Authentication from the Authentication dropdown list, and add username and password: anonymous
-#[ ! ]     You can change the username and password in: /etc/aeroo-docs.conf if required.
-##37    Click Apply and Test. You should see the following message if it was successful:
-#
-#Success! Connection to the DOCS service was successfully established and PDF convertion is working.
-
-## Install the OPH Module 
+## ----- Install the OPH Module ----- 
 echo -e "\n---- Do you want to install the oph module? ----"
 while true; do
     read -p "Would you like to install the oph module for Odoo  V $OE_VERSION.0. (y/n)? " yn
@@ -428,23 +467,5 @@ done
 ## ---- Setting permission for home folder /opt/odoo/
 echo -e "\n---- Setting permissions on home folder $OE_HOME ----"
 chown -R $OE_USR:$OE_USR $OE_HOME/*
-
-## ---- RESTART SERVER ---- ##
-echo -e "\n >>>>>>>>>> PLEASE RESTART YOUR SERVER TO FINALISE THE INSTALLATION (See below for the command you should use) <<<<<<<<<<"
-echo -e "\n---- restart the server  ie : sudo shutdown -r now ----"
-while true; do
-    read -p "Would you like to restart your server now (y/n)?" yn
-    case $yn in
-        [Yy]* ) sudo shutdown -r now
-        break;;
-        [Nn]* ) break;;
-        * ) echo "Please answer yes or no.";;
-    esac
-done
-
-### for debug
-echo -e "\n----BYE FOR NOW----"
-tree /opt/$OE_USR -L 5 -gu 
-exit 1
-### end for debug
+ 
 

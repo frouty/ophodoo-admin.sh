@@ -13,6 +13,19 @@ This is a collection of bash scripts that enable:
  of a testing serv
 
 
+# /ODOO/odoo7
+c'est la branch 7.0 de ma fork odoo
+# /ODOO/odoo8
+c'est la branch 8.0 de ma fork odoo
+
+je pense qu'elles ne servent à rien et que je peux les détruire. Car je ne veux pas développer odoo.
+C'est la partie server. maintenant je vais l'installer sous /opt/odoo/odoo7/odoo7-server et odoo8/odoo8-server
+
+# /ODOO/oph_odoo7
+ uniquement la partie OPH 
+
+Je pense que sur les postes de travail je peux avoir plusieurs system de fichier par version mais par contre au niveau de github une seule suffit je pense.
+
 # Administration de postgresql
 ## Les utilisateurs
 il faut être root pour se loguer à postgres sans avoir à rentrer un password. Le compte Postgres Unix est vérouillé (aucun password ne marchera). Ce qui veut dire que seul root peut `su` vers ce compte.
@@ -53,6 +66,11 @@ $su
 #su postgres
 #psql unnomdedatabaseexistant (comme template0)
 ```
+psql template0  
+psql: FATAL:  database "template0" is not currently accepting connections  
+psql template1 OK  
+
+
 Mais on aimerait bien pouvoir se connecter en tant qu'utilisateur linux habituel. Il y a plusieurs facon de faire. 
 Pour permettre à des utilisateurs locaux d'accéder à la base de donnée il faut éditer /etc/postgresql/pg_hba.conf.
 Mais une fois qu'on a autorisé les users à entrer dans la database ils doivent aussi exister dans la database pour pouvoir se connecter.
@@ -128,3 +146,14 @@ https://pypi.python.org/pypi/rotate-backups#features
 pip install rotate-backups
 
 et je n'ai pas testé mais cela à l'air pas mal.
+
+# https://github.com/frouty/odoo.git
+c'est le fork de odoo 
+ne jamais le modifier.
+ne jamais faire un git push dedans.
+
+# https://github.com/frouty/oph_odoo.git
+c'est le repository avec uniquement l'ophtalmologie.
+pour l'instant il n'y a que la branche 7.0 qui est la branch de prod du 11/06/2018
+
+Il semble que je ne peux pas utiliser ce script pour installer la 7.0 car aeroo report 7.0 n'existe pas. Il n'y a que la 8.0 et la 11.O oir aerireport et la version 8.0 de oph_odoo n'est pas fonctionnel.
