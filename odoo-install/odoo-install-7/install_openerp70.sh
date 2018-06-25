@@ -27,7 +27,7 @@
 #
 # 
 ################################################################################
-set -x # for debugging
+#nset -x # for debugging
 ##openerp
 OE_USR="odoo"
 OE_HOME="/opt/$OE_USR"
@@ -267,7 +267,7 @@ if [[ ! -d  /etc/$OE_USR ]];
 fi
 sudo su root -c "cat <<EOF > /etc/$OE_USR/$OE_CONFIG.conf
 [options]
-addons_path = $OE_HOME/$OE_CONFIG/addons,$OE_HOME/$OE_CONFIG/custom/addons/aeroo, ,$OE_HOME/$OE_CONFIG/custom/addons/oph
+addons_path = $OE_HOME/$OE_CONFIG/addons,$OE_USR$OE_VERSION/custom/addons/aeroo,$OE_USR$OE_VERSION/custom/addons/oph
 # addons_path = /home/lof/ODOO/odoogoeen/addons,/home/lof/ODOO/odoogoeen/extra-addons/aeroo,/home/lof/ODOO/odoogoeen/extra-addons/oph
 admin_passwd = sgcg40
 csv_internal_sep = ,
@@ -335,7 +335,7 @@ xmlrpcs = True
 xmlrpcs_interface = 
 xmlrpcs_port = 8071
 
-EOF"
+EOF
 ## --- Securing odoo-server.conf ----
 echo -e "--- Securing /etc/$OE_USR/$OE_CONFIG.conf file ----"
 sudo chown $OE_USR:$OE_USR  /etc/$OE_USR/$OE_CONFIG.conf
@@ -463,10 +463,10 @@ fi
 ## ----- Install the OPH Module ----- 
 echo -e "\n---- Do you want to install the oph module? ----"
 while true; do
-    read -p "Would you like to install the oph module for Odoo  V $OE_VERSION.0. (y/n)? " yn
+    read -p "Would you like to install the OPH module for Odoo  V $OE_VERSION.0. (y/n)? " yn
     case $yn in
         [Yy]* ) cd $OE_HOME/$OE_USR$OE_VERSION/custom/addons
-        sudo git clone --branch $OE_VERSION.0 https://www.github.com/frouty/oph_odoo.git 
+        sudo git clone --branch $OE_VERSION.0 https://www.github.com/frouty/oph_odoo.git oph
 		 # use the https url not the ssh github url else permission non accordée       	
         break;;
         [Nn]* ) break;;
