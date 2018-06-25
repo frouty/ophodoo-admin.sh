@@ -28,9 +28,7 @@
 # 
 ################################################################################
 
-## --------
 ## fixed var
-## --------
 TEMP="/home/lof/tempo"
 ##openerp
 OE_USR="odoo"
@@ -39,7 +37,7 @@ OE_CONFIG="$OE_USR$OE_VERSION-server" # ie : odoo7-server
 OE_PORT="8069"
 OE_SUPERADMIN="admin"
 
-## create ODOO system usr 
+## create ODOO system user 
 ## gecos is a comment field for user.
 echo -e "\n---- Create ODOO system user ----"
 sudo adduser --system --quiet --shell=/bin/bash --home=$OE_HOME --gecos 'ODOO' --group $OE_USR >> ./install_log
@@ -274,7 +272,7 @@ sudo update-rc.d aeroo-docs defaults
 sudo service aeroo-docs restart
 ## end of aeroo_docs install
 
-## --- Install odoo server ---- ##
+## --- Install ODOO server ---- ##
 echo -e "\n---So let's install V$OE_VERSION.0"
 echo -e "\n---Cloning the github branch $OE_VERSION.0 of odoo ----"
 while true; do
@@ -300,7 +298,7 @@ echo -e "* Create server config file"
 if [[ ! -d  /etc/$OE_USR ]];
 	then sudo mkdir  /etc/$OE_USR/
 fi
-cat <<EOF > /etc/$OE_USR/$OE_CONFIG-server.conf
+cat <<EOF > /etc/$OE_USR/$OE_CONFIG.conf
 [options]
 ## specify additional addons paths (separated by commas)' 
 addons_path = $OE_ADDONS_PATH

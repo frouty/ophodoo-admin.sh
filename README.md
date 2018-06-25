@@ -157,3 +157,35 @@ c'est le repository avec uniquement l'ophtalmologie.
 pour l'instant il n'y a que la branche 7.0 qui est la branch de prod du 11/06/2018
 
 Il semble que je ne peux pas utiliser ce script pour installer la 7.0 car aeroo report 7.0 n'existe pas. Il n'y a que la 8.0 et la 11.O oir aerireport et la version 8.0 de oph_odoo n'est pas fonctionnel.
+
+## 
+J'ai réussi à installer une 7.0 avec le script install_openerp70.sh.
+Je lance le server avec la commande ` ./openerp-server --addons-path addons`   
+Il faut utiliser la database odoogoeenjuin17 avec login admin passwd easyfamily
+J'ai pas l'impression que le init script fonctionne. Je n'arrive pas a voir le log. 
+
+## sur saphir
+je n'arrive pas utiliser le /etc/init.d script pour lancer odoo. 
+Ca marche en /opt/odoo7-server/openerp-server
+J'ai essaye en installant le scrip de la machine de prod et pareil rien ne se passe.
+C'était un probleme de droit sur /etc/odoo directory.s
+su chmod 755 /etc/odoo
+
+## j'ai des choses sur les options pour la commande CLI openerp-server
+
+## on peut générer un fichier de conf 
+avec opener-server --addons-path addons -s 
+ensuite faire un locate openerp-serverrc
+ pour voir le fichier généré.
+
+## quels sont les droits à mettre pour le fichier de conf.
+TODO
+
+## Je pense que le script installopenerp70.sh est ok
+Mais reste le probleme du repository qui est maintenant oph_odoo avec toutes les branches. la 8 la 7 et les branches de dev de fix....
+Ma branche de prod est la branch prod du repository https://github.com/frouty/odoogoeen.git (push)
+j'aimerai que cette branch devienne la branch 7.0 de https://github.com/frouty/oph_odoo.git
+Normalement j'ai fait ce qu'il faut pour ne garder d'odoogoeen que les fichiers pour les modules oph.
+Je l'ai poussé dans oph_odoo. mais je n'ai que la branch prod pour l'instant. Je checkout 7.0 depuis prod. 
+Maintenant il faudrait que je teste mon script d'installation sur la linuxbox.
+

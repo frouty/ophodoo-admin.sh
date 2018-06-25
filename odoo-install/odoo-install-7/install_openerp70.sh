@@ -27,7 +27,7 @@
 #
 # 
 ################################################################################
-
+set -x # for debugging
 ##openerp
 OE_USR="odoo"
 OE_HOME="/opt/$OE_USR"
@@ -37,8 +37,10 @@ OE_CONFIG="$OE_USR$OE_VERSION-server" # ie : odoo7-server
 OE_PORT="8069"
 OE_SUPERADMIN="admin"
 ##--
+TEMP="tmp"
 
-## create ODOO system usr 
+
+## create ODOO system user 
 ## gecos is a comment field for user.
 echo -e "\n---- Create ODOO system user ----"
 sudo adduser --system --quiet --shell=/bin/bash --home=$OE_HOME --gecos 'ODOO' --group $OE_USR >> ./install_log
@@ -115,6 +117,7 @@ then
 	sudo rm -rf $OE_HOME/$OE_USR$OE_VERSION  >>./install_log
 fi 
 sudo mkdir -p $OE_HOME/$OE_USR$OE_VERSION/custom/addons/  >> ./install_log
+
 ## Installation de aeroo lib
 echo -e "\n---- Install aeroo lib ----"
 echo -e "\n---- first Install libreoffice and some python libraries ----"
@@ -135,12 +138,16 @@ sudo python setup.py install
 
 ## --- MAKE AN INIT SCRIPT FOR LIBREOFFICE HEADLESS SERVER---
 echo -e "\n--- Make an init script for LibreOffice headless server ---"
-cd $TEMP
+if   [[ ! -d $HOME/$TEMP ]];
+then 
+	mkdir $HOME/$TEMP
+fi
+cd $HOME/$TEMP
 ## The quoted form of "EOF" is important
 ## it's for not interpreting the $
 ## else you get the "$1" and "$2" replaced by the name of the script !
 ## the second EOF do not have to be quoted.
-cat > libreoffice.sh << 'EOF'
+cat > libreoffice.sh << EOF
 #!/bin/bash 
 # openoffice.org headless server script 
 # 
@@ -163,34 +170,34 @@ PIDFILE=/var/run/libreoffice-server.pid
 
 set -e 
 
-case "$1" in 
+case "\$1" in 
 start) 
-if [ -f $PIDFILE ]; then 
+if [ -f \$PIDFILE ]; then 
 echo "LibreOffice headless server has already started." 
 sleep 5 
 exit 
 fi 
 echo "Starting LibreOffice headless server" 
-$SOFFICE_PATH --nologo --nofirststartwizard --headless --norestore --invisible "--accept=socket,host=localhost,port=8100,tcpNoDelay=1;urp;" & > /dev/null 2>&1 
-touch $PIDFILE 
+\$SOFFICE_PATH --nologo --nofirststartwizard --headless --norestore --invisible "--accept=socket,host=localhost,port=8100,tcpNoDelay=1;urp;" & > /dev/null 2>&1 
+touch \$PIDFILE 
 ;; 
 stop) 
-if [ -f $PIDFILE ]; then 
+if [ -f \$PIDFILE ]; then 
 echo "Stopping LibreOffice headless server." 
 killall -9 oosplash && killall -9 soffice.bin 
-rm -f $PIDFILE 
+rm -f \$PIDFILE 
 exit 
 fi 
 echo "LibreOffice headless server is not running." 
 exit 
 ;; 
 restart) 
-$0 stop 
+\$0 stop 
 sleep 1 
-$0 start 
+\$0 start 
 ;; 
 *) 
-echo "Usage: $0 {start|stop|restart}" 
+echo "Usage: \$0 {start|stop|restart}" 
 exit 1 
 esac 
 exit 0
@@ -201,13 +208,13 @@ EOF
 echo -e "--- mv the script to /etc/init.d---"
 if [[ ! -e /etc/init.d/libreoffice.sh ]]; 
 then
-	sudo mv $TEMP/libreoffice.sh /etc/init.d/
+	sudo mv $HOME/$TEMP/libreoffice.sh /etc/init.d/
 	sudo chmod +x /etc/init.d/libreoffice.sh
 	sudo chmod 0755 /etc/init.d/libreoffice.sh
 	sudo update-rc.d libreoffice.sh defaults 
 	sudo service libreoffice.sh start	
 else
-	echo -e "---/etc/init.d/libreoffice.sh exist already. Do you want to overwrite it?---"
+	echo -e "--- /etc/init.d/libreoffice.sh exist already. Do you want to overwrite it?---"
 fi
 
 ## to test the service
@@ -227,55 +234,56 @@ fi
 ## remove the service
 ## sudo update-rc.d -f libreoffice.sh remove
 	
-echo -e "\n---- End of AerooLib install---" 
+echo -e "--- End of AerooLib install---" 
 ## end of aeroolib install
 
-## --- Install odoo server ---- ##
-echo -e "\n---So let's install V$OE_VERSION.0"
-echo -e "\n---Cloning the github branch $OE_VERSION.0 of odoo ----"
+## --- Install ODOO server ---- ##
+echo -e "\n--- So let's install V$OE_VERSION.0"
+echo -e "--- Cloning the github branch $OE_VERSION.0 of odoo ? ----"
 while true; do
-    read -p "Would you like a fresh install of Odoo  V $OE_VERSION.0. Could take some time (y/n)? " yn
+    read -p "--- Would you like a fresh install of Odoo  V $OE_VERSION.0. Could take some time (y/n)? --- " yn
     case $yn in
         [Yy]* ) cd $OE_HOME/
         if [[ -d $OE_HOME/$OE_USR$OE_VERSION-server ]]; #/odoo/odooV-server
 then
-	echo -e "\n---- Removing =$E_HOME/$OE_USR$OE_VERSION-server directory ----"
+	echo -e "---- Removing =$E_HOME/$OE_USR$OE_VERSION-server directory ----"
 	sudo rm -rf $OE_HOME/$OE_USR$OE_VERSION-server 
 fi 
-		sudo mkdir -p $OE_HOME/$OE_CONFIG-server
-        sudo git clone --branch $OE_VERSION.0 https://www.github.com/odoo/odoo.git $OE_CONFIG-server 
+		sudo mkdir -p $OE_HOME/$OE_CONFIG
+        sudo git clone --branch $OE_VERSION.0 https://www.github.com/odoo/odoo.git $OE_CONFIG 
  # use the https url not the ssh github url else permission non accordée       	
         break;;
         [Nn]* ) break;;
-        * ) echo "Please answer yes or no.";;
+        * ) echo "--- Please answer yes or no.";;
     esac
 done
 
 ## Create a config file for odoo server
-#Install a config file 
-echo -e "* Create server config file"
+echo -e "\n--- Create server config file ---"
 if [[ ! -d  /etc/$OE_USR ]];
 	then sudo mkdir  /etc/$OE_USR/
+		sudo chown -R $OE_USR: /etc/$OE_USR/
+		sudo chmod 755 /etc/$OE_USR/
 fi
-cat <<EOF > /etc/$OE_USR/$OE_CONFIG-server.conf
+sudo su root -c "cat <<EOF > /etc/$OE_USR/$OE_CONFIG.conf
 [options]
-addons_path = $OE_HOME/$OE_CONFIG-server/addons,$OE_HOME/$OE_CONFIG/custom/addons/aeroo, ,$OE_HOME/$OE_CONFIG/custom/addons/oph
+addons_path = $OE_HOME/$OE_CONFIG/addons,$OE_HOME/$OE_CONFIG/custom/addons/aeroo, ,$OE_HOME/$OE_CONFIG/custom/addons/oph
 # addons_path = /home/lof/ODOO/odoogoeen/addons,/home/lof/ODOO/odoogoeen/extra-addons/aeroo,/home/lof/ODOO/odoogoeen/extra-addons/oph
 admin_passwd = sgcg40
 csv_internal_sep = ,
 db_host = False
 db_maxconn = 64
 db_name = False
-db_password = ark700a
+db_password = False
 db_port = False
 db_template = template1
-db_user = openerp
+db_user = odoo
 dbfilter = .*
 debug_mode = False
 demo = {}
 email_from = False
 # ftp_server_host HACK ME
-ftp_server_host = 10.66.0.249
+#ftp_server_host = 10.66.0.249
 import_partial = 
 limit_memory_hard = 805306368
 limit_memory_soft = 671088640
@@ -291,7 +299,7 @@ login_message = False
 logrotate = True
 max_cron_threads = 2
 netrpc = False
-netrpc_interface = 127.0.0.1
+netrpc_interface = 
 netrpc_port = 8070
 osv_memory_age_limit = 1.0
 osv_memory_count_limit = False
@@ -321,18 +329,17 @@ unaccent = False
 without_demo = False
 workers = 0
 xmlrpc = True
-xmlrpc_interface = 127.0.0.1
+xmlrpc_interface = 
 xmlrpc_port = 8069
 xmlrpcs = True
 xmlrpcs_interface = 
 xmlrpcs_port = 8071
 
-EOF
+EOF"
 ## --- Securing odoo-server.conf ----
-echo -e "\n---- Securing odoo-server conf file ----"
-chown $OE_USR:$OE_USR  /etc/$OE_USR/$OE_CONFIG-server.conf
-chmod 640 /etc/$OE_USR/$OE_CONFIG-server.conf
-
+echo -e "--- Securing /etc/$OE_USR/$OE_CONFIG.conf file ----"
+sudo chown $OE_USR:$OE_USR  /etc/$OE_USR/$OE_CONFIG.conf
+sudo chmod 640 /etc/$OE_USR/$OE_CONFIG.conf
 
 ## ---- Create an init file for odoo server -----
 echo -e "\n--- Make an init script for odoo server ---"
@@ -341,15 +348,18 @@ cd $TEMP
 ## it's for not interpreting the $
 ## else you get the "$1" and "$2" replaced by the name of the script !
 ## the second EOF do not have to be quoted.
-cat > odoo-server << 'EOF'
+## but here you need some substitution
+## but sometimes not and you use the \ escape character for that
+## sudo su root -c doesn't work ici
+cat > ~/odoo-server << EOF
 #!/bin/sh
 
 ### BEGIN INIT INFO
 # Provides:             odoo-server
-# Required-Start:       $remote_fs $syslog
-# Required-Stop:        $remote_fs $syslog
-# Should-Start:         $network
-# Should-Stop:          $network
+# Required-Start:       \$remote_fs \$syslog
+# Required-Stop:        \$remote_fs \$syslog
+# Should-Start:         \$network
+# Should-Stop:          \$network
 # Default-Start:        2 3 4 5
 # Default-Stop:         0 1 6
 # Short-Description:    Complete Business Application software
@@ -363,7 +373,7 @@ PATH=/bin:/sbin:/usr/bin
 OE_USR="odoo"
 OE_VERSION=7
 OE_CONFIG=$OE_USR$OE_VERSION-server
-DAEMON=$OE_HOME/$OE_CONFIG/openerp-server # look in the odoo repository
+DAEMON=$OE_HOME/$OE_CONFIG/openerp-server # look in the odoo repository for the correct path
 NAME=odoo-server
 DESC=odoo-server
 
@@ -373,62 +383,62 @@ USER=odoo
 
 # Specify an alternate config file (Default: /etc/odoo-server.conf).
 #CONFIGFILE="/etc/odoo-server.conf"
-CONFIGFILE="/etc/$OE_USR/$OE_CONFIG-server.conf"
+CONFIGFILE="/etc/$OE_USR/$OE_CONFIG.conf"
 
 # pidfile
-PIDFILE=/var/run/$NAME.pid
+PIDFILE=/var/run/\$NAME.pid
 
 # Additional options that are passed to the Daemon.
-DAEMON_OPTS="-c $CONFIGFILE"
+DAEMON_OPTS="-c \$CONFIGFILE"
 
-[ -x $DAEMON ] || exit 0
-[ -f $CONFIGFILE ] || exit 0
+[ -x \$DAEMON ] || exit 0
+[ -f \$CONFIGFILE ] || exit 0
 
 checkpid() {
-    [ -f $PIDFILE ] || return 1
-    pid=`cat $PIDFILE`
-    [ -d /proc/$pid ] && return 0
+    [ -f \$PIDFILE ] || return 1
+    pid=\`cat \$PIDFILE\`
+    [ -d /proc/\$pid ] && return 0
     return 1
 }
 
-case "${1}" in
+case "\${1}" in
         start)
-                echo -n "Starting ${DESC}: "
+                echo -n "Starting \${DESC}: "
 
-                start-stop-daemon --start --quiet --pidfile ${PIDFILE} \
-                        --chuid ${USER} --background --make-pidfile \
-                        --exec ${DAEMON} -- ${DAEMON_OPTS}
+                start-stop-daemon --start --quiet --pidfile \${PIDFILE} \
+                --chuid \${USER} --background --make-pidfile \
+                --exec \${DAEMON} -- \${DAEMON_OPTS}
 
-                echo "${NAME}."
+                echo "\${NAME}."
                 ;;
 
         stop)
-                echo -n "Stopping ${DESC}: "
+                echo -n "Stopping \${DESC}: "
 
-                start-stop-daemon --stop --quiet --pidfile ${PIDFILE} \
-                        --oknodo
+                start-stop-daemon --stop --quiet --pidfile \${PIDFILE} \
+                --oknodo
 
-                echo "${NAME}."
+                echo "\${NAME}."
                 ;;
 
         restart|force-reload)
-                echo -n "Restarting ${DESC}: "
+                echo -n "Restarting \${DESC}: "
 
-                start-stop-daemon --stop --quiet --pidfile ${PIDFILE} \
-                        --oknodo
+                start-stop-daemon --stop --quiet --pidfile \${PIDFILE} \
+                --oknodo
       
                 sleep 1
 
-                start-stop-daemon --start --quiet --pidfile ${PIDFILE} \
-                        --chuid ${USER} --background --make-pidfile \
-                        --exec ${DAEMON} -- ${DAEMON_OPTS}
+                start-stop-daemon --start --quiet --pidfile \${PIDFILE} \
+                --chuid \${USER} --background --make-pidfile \
+                 --exec \${DAEMON} -- \${DAEMON_OPTS}
 
-                echo "${NAME}."
+                echo "\${NAME}."
                 ;;
 
         *)
-                N=/etc/init.d/${NAME}
-                echo "Usage: ${NAME} {start|stop|restart|force-reload}" >&2
+                N=/etc/init.d/\${NAME}
+                echo "Usage: \${NAME} {start|stop|restart|force-reload}" >&2
                 exit 1
                 ;;
 esac
@@ -440,9 +450,10 @@ EOF
 echo -e "--- mv the script to /etc/init.d---"
 if [[ ! -e /etc/init.d/odoo-server ]]; 
 then
-	sudo mv $TEMP/odoo-server /etc/init.d/
+	sudo mv ~/odoo-server /etc/init.d/
 	sudo chmod +x /etc/init.d/odoo-server
 	sudo chmod 0755 /etc/init.d/odoo-server
+	echo -e "--- Start ODOO on Startup ---"
 	sudo update-rc.d odoo-server defaults 
 	sudo service odoo-server start	
 else
@@ -464,8 +475,27 @@ while true; do
 done
 ## End Install the OPH Module 
 
+## ----- Install aeroo module -------
+## dans github de aeroo on ne trouve pas la version d'aeroo
+## pour la version 7.0 d'odoo
+## Mais j'ai la branche de julius-network-solutions
+## que j'ai forké
+echo -e "\n---- Do you want to install aeroo report ----"
+while true; do
+    read -p "Would you like to install the AEROO module for Odoo  V $OE_VERSION.0. (y/n)? " yn
+    case $yn in
+        [Yy]* ) cd $OE_HOME/$OE_USR$OE_VERSION/custom/addons
+        sudo git clone --branch $OE_VERSION.0 https://www.github.com/frouty/aeroo.git 
+		 # use the https url not the ssh github url else permission non accordée       	
+        break;;
+        [Nn]* ) break;;
+        * ) echo "Please answer yes or no.";;
+    esac
+done
+## End install aeroo module
+
 ## ---- Setting permission for home folder /opt/odoo/
 echo -e "\n---- Setting permissions on home folder $OE_HOME ----"
-chown -R $OE_USR:$OE_USR $OE_HOME/*
+sudo chown -R $OE_USR:$OE_USR $OE_HOME/*
  
 
