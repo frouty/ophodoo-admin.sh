@@ -131,7 +131,7 @@ fi
 sudo mkdir /opt/aeroo >> ./install_log
 cd /opt/aeroo 
 echo -e "--- clonage de aeroolib---"
-sudo git clone https://github.com/aeroo/aeroolib.git 
+sudo git clone -b py2.x https://github.com/aeroo/aeroolib.git 
 cd /opt/aeroo/aeroolib
 echo -e "---- Install aeroolib ---"
 sudo python setup.py install 
@@ -267,7 +267,7 @@ if [[ ! -d  /etc/$OE_USR ]];
 fi
 sudo su root -c "cat <<EOF > /etc/$OE_USR/$OE_CONFIG.conf
 [options]
-addons_path = $OE_HOME/$OE_CONFIG/addons,$OE_USR$OE_VERSION/custom/addons/aeroo,$OE_USR$OE_VERSION/custom/addons/oph
+addons_path = $OE_HOME/$OE_CONFIG/addons,$OE_HOME/$OE_USR$OE_VERSION/custom/addons/aeroo,$OE_HOME/$OE_USR$OE_VERSION/custom/addons/oph
 # addons_path = /home/lof/ODOO/odoogoeen/addons,/home/lof/ODOO/odoogoeen/extra-addons/aeroo,/home/lof/ODOO/odoogoeen/extra-addons/oph
 admin_passwd = sgcg40
 csv_internal_sep = ,
@@ -335,7 +335,7 @@ xmlrpcs = True
 xmlrpcs_interface = 
 xmlrpcs_port = 8071
 
-EOF
+EOF"
 ## --- Securing odoo-server.conf ----
 echo -e "--- Securing /etc/$OE_USR/$OE_CONFIG.conf file ----"
 sudo chown $OE_USR:$OE_USR  /etc/$OE_USR/$OE_CONFIG.conf
@@ -343,7 +343,7 @@ sudo chmod 640 /etc/$OE_USR/$OE_CONFIG.conf
 
 ## ---- Create an init file for odoo server -----
 echo -e "\n--- Make an init script for odoo server ---"
-cd $TEMP
+cd $HOME/$TEMP
 ## The quoted form of "EOF" is important
 ## it's for not interpreting the $
 ## else you get the "$1" and "$2" replaced by the name of the script !
@@ -450,7 +450,7 @@ EOF
 echo -e "--- mv the script to /etc/init.d---"
 if [[ ! -e /etc/init.d/odoo-server ]]; 
 then
-	sudo mv ~/odoo-server /etc/init.d/
+	sudo mv $HOME/$TEMP/odoo-server /etc/init.d/
 	sudo chmod +x /etc/init.d/odoo-server
 	sudo chmod 0755 /etc/init.d/odoo-server
 	echo -e "--- Start ODOO on Startup ---"
@@ -462,11 +462,11 @@ fi
 
 ## ----- Install the OPH Module ----- 
 echo -e "\n---- Do you want to install the oph module? ----"
-while true; do
+while true; do 
     read -p "Would you like to install the OPH module for Odoo  V $OE_VERSION.0. (y/n)? " yn
     case $yn in
         [Yy]* ) cd $OE_HOME/$OE_USR$OE_VERSION/custom/addons
-        sudo git clone --branch $OE_VERSION.0 https://www.github.com/frouty/oph_odoo.git oph
+        sudo git clone --branch $OE_VERSION.0 https://www.github.com/frouty/oph_odoo.git oph 
 		 # use the https url not the ssh github url else permission non accordée       	
         break;;
         [Nn]* ) break;;
