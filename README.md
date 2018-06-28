@@ -188,4 +188,17 @@ j'aimerai que cette branch devienne la branch 7.0 de https://github.com/frouty/o
 Normalement j'ai fait ce qu'il faut pour ne garder d'odoogoeen que les fichiers pour les modules oph.
 Je l'ai poussé dans oph_odoo. mais je n'ai que la branch prod pour l'instant. Je checkout 7.0 depuis prod. 
 Maintenant il faudrait que je teste mon script d'installation sur la linuxbox.
+je n'ai pas osé le faire dans linuxbox de peur de le casser.
+Je l'ai donc fait dans le nouveau chassis odoo.
+
+# A faire pour le filestorage. TODO. 
+Pour il n'y a pas de filestorage dans le nouveau chassis
+mkdir /var/odooattachment.
+chown odoouser:odoouser /var/odooattachment
+ln -s /openerp/filestore /var/odooattchment
+on récupere tous les attachments 
+rsync-copy openerp/filestorage/* /var/odooattachment 
+on verifie avec un tree -gup /var/odooattachment que tout va bien
+
+Ensuite il faudra créer un scipt de back de /var/odooattachment.
 
