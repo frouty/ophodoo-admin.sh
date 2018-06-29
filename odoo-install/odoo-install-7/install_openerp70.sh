@@ -355,7 +355,7 @@ cd $HOME/$TEMP
 ## but here you need some substitution
 ## but sometimes not and you use the \ escape character for that
 ## sudo su root -c doesn't work ici
-cat > ~/odoo-server << EOF
+cat > $HOME/$TEMP/odoo-server << EOF
 #!/bin/sh
 
 ### BEGIN INIT INFO
