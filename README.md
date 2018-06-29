@@ -138,7 +138,6 @@ netstat -natup | grep post
 pg_isready
 ```
 
-
 # Comment faire des rotations de fichiers et de directory
 
 https://pypi.python.org/pypi/rotate-backups#features
@@ -201,4 +200,17 @@ rsync-copy openerp/filestorage/* /var/odooattachment
 on verifie avec un tree -gup /var/odooattachment que tout va bien
 
 Ensuite il faudra créer un scipt de back de /var/odooattachment.
+
+# depuis jessie qui est la version qui fait tourner openerp 7.0 en prod 
+systemd est utilisé pour gérer les daemon. 
+systemctl start|stop|restart|reload|status
+## enable/disable daemon au boot
+systemctl enable|disabble| is-enable ledaemon
+disable m'enleve les symlink dans les rcx.dsi on veut le desactiver de suite et au reboot --now disable. marche pas
+#avant jessie on utiliser les  scipts  system V style. 
+cela permet de faire fonctionner les scripts conditionnelement suivant le runlevel.
+## on controle avec :
+service nomdudaemon start|stop|restart|relaod|status
+## on enable/disable avec :
+udpadte-rc.d <daemon> disbable|enable
 

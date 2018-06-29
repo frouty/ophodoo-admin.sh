@@ -67,7 +67,7 @@ then
     echo "Exit"
     exit 1
 else
-    echo "Connected..!"
+    echo "Connected..!\n"
 fi 
 
 ## ----------
@@ -233,6 +233,7 @@ fi
 
 ## remove the service
 ## sudo update-rc.d -f libreoffice.sh remove
+## ou sudo systemctl disable libreoffice.sh
 	
 echo -e "--- End of AerooLib install---" 
 ## end of aeroolib install
@@ -469,7 +470,10 @@ while true; do
         sudo git clone --branch $OE_VERSION.0 https://www.github.com/frouty/oph_odoo.git oph 
 		 # use the https url not the ssh github url else permission non accordée       	
         break;;
-        [Nn]* ) break;;
+        [Nn]* ) if [[ ! -d $OE_HOME/$OE_USR$OE_VERSION/custom/addons/oph ]];
+        			then echo -e "\n---- There is no $OE_HOME/$OE_USR$OE_VERSION/custom/addons/oph---"
+        				echo -e "---- Are you sure you say no?"
+        		break;;
         * ) echo "Please answer yes or no.";;
     esac
 done
@@ -494,8 +498,19 @@ while true; do
 done
 ## End install aeroo module
 
+ 
+## ---- Setting the attachment files
+## we put all the attachement files in /var/odooattachment
+## don't forget to backup those files.
+echo -e "\n---- Setting the attachment files ----"
+if [[ ! -d /var/odooattachment ]];
+then 
+	sudo  mkdir /var/odooattachement
+	sudo chown $OE_USR:$OE_USR /var/odooattachment
+	sudo ln -s /var/odooattachment $OE_HOME/$OE_CONFIG/openerp/filestore
+else 
+	echo -e "---/var/odooattachment exist already. Do you want to overwrite it?---"
+fi
 ## ---- Setting permission for home folder /opt/odoo/
 echo -e "\n---- Setting permissions on home folder $OE_HOME ----"
 sudo chown -R $OE_USR:$OE_USR $OE_HOME/*
- 
-
