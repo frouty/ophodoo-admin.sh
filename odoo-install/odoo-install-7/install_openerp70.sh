@@ -473,6 +473,7 @@ while true; do
         [Nn]* ) if [[ ! -d $OE_HOME/$OE_USR$OE_VERSION/custom/addons/oph ]];
         			then echo -e "\n---- There is no $OE_HOME/$OE_USR$OE_VERSION/custom/addons/oph---"
         				echo -e "---- Are you sure you say no?"
+        	fi
         		break;;
         * ) echo "Please answer yes or no.";;
     esac
