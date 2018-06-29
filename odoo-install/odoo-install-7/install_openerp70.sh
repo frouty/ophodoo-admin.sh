@@ -67,7 +67,7 @@ then
     echo "Exit"
     exit 1
 else
-    echo "Connected..!\n"
+    echo "Connected..!"
 fi 
 
 ## ----------
@@ -344,6 +344,9 @@ sudo chmod 640 /etc/$OE_USR/$OE_CONFIG.conf
 
 ## ---- Create an init file for odoo server -----
 echo -e "\n--- Make an init script for odoo server ---"
+if [[ ! -d  $HOME/$TEMP ]];
+	then sudo mkdir  $HOME/$TEMP
+fi 
 cd $HOME/$TEMP
 ## The quoted form of "EOF" is important
 ## it's for not interpreting the $
