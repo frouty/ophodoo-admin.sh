@@ -121,7 +121,9 @@ sudo mkdir -p $OE_HOME/$OE_USR$OE_VERSION/custom/addons/  >> ./install_log
 ## Installation de aeroo lib
 echo -e "\n---- Install aeroo lib ----"
 echo -e "\n---- first Install libreoffice and some python libraries ----"
-sudo apt-get install -y --force-yes --no-install-recommends libreoffice-common libreoffice-core python3-uno libreoffice-script-provider-python >> ./install_log
+#sudo apt-get install -y --force-yes --no-install-recommends libreoffice-common libreoffice-core python3-uno libreoffice-script-provider-python >> ./install_log
+#python3-uno pose des problemes de dependances.
+sudo apt-get install -y --force-yes --no-install-recommends libreoffice-common libreoffice-core python-uno libreoffice-script-provider-python >> ./install_log
 sudo apt-get install python-setuptools python-genshi python-cairo python-lxml >> ./install_log
 
 if [[ -d /opt/aeroo ]];

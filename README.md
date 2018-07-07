@@ -1,4 +1,4 @@
-#ophodoo-admin
+# ophodoo-admin
 
 This is a collection of bash scripts that enable:
 
@@ -13,16 +13,14 @@ This is a collection of bash scripts that enable:
  of a testing serv
 
 
-# /ODOO/odoo7
-c'est la branch 7.0 de ma fork odoo
-# /ODOO/odoo8
-c'est la branch 8.0 de ma fork odoo
+# /ODOO/oph_odoo
+c'est la branch 7.0
+C'est la branch 8.0 
+On met tout dans le meme repository
 
 je pense qu'elles ne servent à rien et que je peux les détruire. Car je ne veux pas développer odoo.
 C'est la partie server. maintenant je vais l'installer sous /opt/odoo/odoo7/odoo7-server et odoo8/odoo8-server
 
-# /ODOO/oph_odoo7
- uniquement la partie OPH 
 
 Je pense que sur les postes de travail je peux avoir plusieurs system de fichier par version mais par contre au niveau de github une seule suffit je pense.
 
@@ -97,8 +95,18 @@ l'identification c'est à dire que le mot de passe est le même que celui de lin
 * pour se connecter à une autre database: \c 
 * pour avoir des infos sur la connection : \conninfo
 
+## Comment connaitre les roles dans postgresql
+postgres=# \dg
 
-##Comment faire un dump sur le server?
+## Comment lister les databases 
+postgres=# \l
+
+## comment savoir sur quel database on est connecté
+postgres=# \conninfo
+
+## comment supprimer une database.
+
+## Comment faire un dump sur le server?
 ```
 lof$ pg_dump -Fc goeen001 > test.dump ne marche pas.
 ```
@@ -117,7 +125,7 @@ si je mets md5 ca ne marche pas.
 
 ## Comment connaitre sa version de postgresql?
 ```
-#select version();
+\#select version();
 ```
 
 ## pg_lscluster
@@ -137,6 +145,9 @@ netstat -natup | grep post
 ```
 pg_isready
 ```
+## Comment supprimer une base de données.
+DROP DATABASE [IF EXISTS] name;
+Si cela donne `database is being accessed by other users ` faire : ` service postgresql restart ` 
 
 # Comment faire des rotations de fichiers et de directory
 
@@ -147,9 +158,9 @@ pip install rotate-backups
 et je n'ai pas testé mais cela à l'air pas mal.
 
 # https://github.com/frouty/odoo.git
-c'est le fork de odoo 
-ne jamais le modifier.
-ne jamais faire un git push dedans.
+c'est le fork de odoo  
+ne jamais le modifier.  
+ne jamais faire un git push dedans.  
 
 # https://github.com/frouty/oph_odoo.git
 c'est le repository avec uniquement l'ophtalmologie.
@@ -160,14 +171,13 @@ Il semble que je ne peux pas utiliser ce script pour installer la 7.0 car aeroo 
 ## 
 J'ai réussi à installer une 7.0 avec le script install_openerp70.sh.
 Je lance le server avec la commande ` ./openerp-server --addons-path addons`   
-Il faut utiliser la database odoogoeenjuin17 avec login admin passwd easyfamily
-J'ai pas l'impression que le init script fonctionne. Je n'arrive pas a voir le log. 
+
 
 ## sur saphir
 je n'arrive pas utiliser le /etc/init.d script pour lancer odoo. 
 Ca marche en /opt/odoo7-server/openerp-server
-J'ai essaye en installant le scrip de la machine de prod et pareil rien ne se passe.
-C'était un probleme de droit sur /etc/odoo directory.s
+J'ai essaye en installant le script de la machine de prod et pareil rien ne se passe.
+C'était un probleme de droit sur /etc/odoo directories.  
 su chmod 755 /etc/odoo
 
 ## j'ai des choses sur les options pour la commande CLI openerp-server
@@ -191,15 +201,30 @@ je n'ai pas osé le faire dans linuxbox de peur de le casser.
 Je l'ai donc fait dans le nouveau chassis odoo.
 
 # A faire pour le filestorage. TODO. 
-Pour il n'y a pas de filestorage dans le nouveau chassis
+Il n'y a pas de filestorage dans le nouveau chassis
 mkdir /var/odooattachment.
 chown odoouser:odoouser /var/odooattachment
 ln -s /openerp/filestore /var/odooattchment
 on récupere tous les attachments 
-rsync-copy openerp/filestorage/* /var/odooattachment 
+rsync-copy openerp/filestore/* /var/odooattachment 
 on verifie avec un tree -gup /var/odooattachment que tout va bien
 
-Ensuite il faudra créer un scipt de back de /var/odooattachment.
+Pour l'instant je le recupere sur saphir qui est en VPN sur le server de prod.
+avec rsync-copy lof@10.66.0.250:/home/lof/ODOO/odoogoeen/openerp/filestore/* /home/lof/tempo/filestore
+
+Je ne peux faire un rsync-copy de saphir vers le nouvel odoo. Car je ne peux le faire sur root access denie.
+Je fais un ssh sur le nouveau server odoo et un rsync-copy lof@192.168.153:/home/lof/tempo/filestore/ /var/odooattachement. 
+chown odoo:odoo -R /var/odoo/ # sans faire ce chgt j'ai l'impression que cela ne géne pas.
+
+
+Attention la partition /var n'est pas tres grande.  
+Pour l'agrandir:  
+lvextend -L +10G /dev/mapper/openerp70--vg-var
+resize2fs /dev/mapper/openerp70--vg-var
+
+TODO script to check size of var partition and  send email and do the job.
+
+Ensuite il faudra créer un script de backup de /var/odooattachment.
 
 # depuis jessie qui est la version qui fait tourner openerp 7.0 en prod 
 systemd est utilisé pour gérer les daemon. 
@@ -214,3 +239,7 @@ service nomdudaemon start|stop|restart|relaod|status
 ## on enable/disable avec :
 udpadte-rc.d <daemon> disbable|enable
 
+
+## database manager
+il est déconseillé d'utiliser le database manager en production. 
+### comment faire pour s'en débarraser.
