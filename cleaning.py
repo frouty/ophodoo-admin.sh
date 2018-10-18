@@ -5,7 +5,7 @@
 # how to use it
 # cd oph_admin.sh
 # ./cleaning.py
-# comme cela ça ne marche pas mais ca marche dans eclipse: run as...
+# comme cela ça ne marche pas mais ca marche dans eclipse: run / run as / python run...
 
 
 #
@@ -20,8 +20,9 @@ logger = logging.getLogger(__name__)
 patterns = ['BDS[ ]Remise[ ]Chq*',
           'Appointment[ ]Memo*',
           'Biology[ ]Prescription[ ]Report*',
+          'Certificat*',
           'Cardio[ ]Reporting*',
-          'Diabetic[ ]Reporting*',
+          # 'Diabetic[ ]Reporting*',
           'Etat[ ]LM*',
           'Etat[ ]NORD*',
           'Etat[ ]SUD*',
@@ -29,32 +30,38 @@ patterns = ['BDS[ ]Remise[ ]Chq*',
           'FDS[ ]TIERS[ ]PAYANT*',
           'Fiche[ ]Liaison*'
           'Medication[ ]Report*',
+          'Medication*.odt',
+          'Memo*',
           'Multifocal[ ]and[ ]Sunglasses*',
           'Multifocal[ ]and[ ]Reading*',
-          'OCT[ ]Report*',
+          # 'OCT[ ]Report*',
           'Single[ ]Vision*',
           'Fiche[ ]Liaison*',
-          'Memo[ ]de[ ]rendez[ ]vous*',
+          # 'Memo[ ]de[ ]rendez[ ]vous*',
           'Ordonnance[ ]IVT*',
           'Operating[ ]Room[ ]Report*',
           'Prescription[ ]OR*',
           'BDX[ ]Remise[ ]Chq*',
           'Medication[ ]Report*',
-          'Plain[ ]Report[ ]Small[ ]Font*',
+          # 'Plain[ ]Report[ ]Small[ ]Font*',
           'PKE[ ]ICP[ ]Report*',
           'Precription[ ]OR*',
           'Near[ ]Vision[ ]Glasses*',
           'Planning[ ]Notification*',
+          'PresOR_*',
           'Reading[ ]Glasses*',
+          'Radiology*',
+          'Reading*',
+          'Single*',
           'Check[ ]List[ ]Block[ ]Agenda*',
           'Bloc[ ]Agenda[ ]Report*',
           'Hospit[ ]Reporting*',
           'Request[ ]Bizone*',
-          'Fluoresceine[ ]Angiography[ ]Report',
+          # 'Fluoresceine[ ]Angiography[ ]Report',
           ]
 
 
-WORKING_DIR = os.path.expanduser('~') + '/FEV17'
+WORKING_DIR = os.path.expanduser('~') + '/SEPT17'
 
 logger.info('le working dir is: %s', WORKING_DIR)
 

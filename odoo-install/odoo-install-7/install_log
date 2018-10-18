@@ -2175,3 +2175,210 @@ python-lxml is already the newest version (3.7.1-1).
 python-cairo is already the newest version (1.8.8-2.2).
 python-setuptools is already the newest version (33.1.1-1).
 0 mis à jour, 0 nouvellement installés, 0 à enlever et 1 non mis à jour.
+Lecture des listes de paquets…
+Construction de l'arbre des dépendances…
+Lecture des informations d'état…
+Les paquets suivants ont été installés automatiquement et ne sont plus nécessaires :
+  linux-image-3.16.0-4-amd64 linux-image-3.2.0-4-amd64
+Veuillez utiliser « apt-get autoremove » pour les supprimer.
+Les NOUVEAUX paquets suivants seront installés :
+  ssh
+0 mis à jour, 1 nouvellement installés, 0 à enlever et 0 non mis à jour.
+Il est nécessaire de prendre 120 ko dans les archives.
+Après cette opération, 164 ko d'espace disque supplémentaires seront utilisés.
+Réception de : 1 http://ftp.nc.debian.org/debian/ jessie/main ssh all 1:6.7p1-5+deb8u4 [120 kB]
+120 ko réceptionnés en 1s (109 ko/s)
+Sélection du paquet ssh précédemment désélectionné.
+(Lecture de la base de données... (Lecture de la base de données... 5%(Lecture de la base de données... 10%(Lecture de la base de données... 15%(Lecture de la base de données... 20%(Lecture de la base de données... 25%(Lecture de la base de données... 30%(Lecture de la base de données... 35%(Lecture de la base de données... 40%(Lecture de la base de données... 45%(Lecture de la base de données... 50%(Lecture de la base de données... 55%(Lecture de la base de données... 60%(Lecture de la base de données... 65%(Lecture de la base de données... 70%(Lecture de la base de données... 75%(Lecture de la base de données... 80%(Lecture de la base de données... 85%(Lecture de la base de données... 90%(Lecture de la base de données... 95%(Lecture de la base de données... 100%(Lecture de la base de données... 263879 fichiers et répertoires déjà installés.)
+Préparation du dépaquetage de .../ssh_1%3a6.7p1-5+deb8u4_all.deb ...
+Dépaquetage de ssh (1:6.7p1-5+deb8u4) ...
+Paramétrage de ssh (1:6.7p1-5+deb8u4) ...
+Lecture des listes de paquets…
+Construction de l'arbre des dépendances…
+Lecture des informations d'état…
+postgresql est déjà la plus récente version disponible.
+Les paquets suivants ont été installés automatiquement et ne sont plus nécessaires :
+  linux-image-3.16.0-4-amd64 linux-image-3.2.0-4-amd64
+Veuillez utiliser « apt-get autoremove » pour les supprimer.
+0 mis à jour, 0 nouvellement installés, 0 à enlever et 0 non mis à jour.
+Lecture des listes de paquets…
+Construction de l'arbre des dépendances…
+Lecture des informations d'état…
+git est déjà la plus récente version disponible.
+Les paquets suivants ont été installés automatiquement et ne sont plus nécessaires :
+  linux-image-3.16.0-4-amd64 linux-image-3.2.0-4-amd64
+Veuillez utiliser « apt-get autoremove » pour les supprimer.
+0 mis à jour, 0 nouvellement installés, 0 à enlever et 0 non mis à jour.
+Lecture des listes de paquets…
+Construction de l'arbre des dépendances…
+Lecture des informations d'état…
+git est déjà la plus récente version disponible.
+Les paquets suivants ont été installés automatiquement et ne sont plus nécessaires :
+  linux-image-3.16.0-4-amd64 linux-image-3.2.0-4-amd64
+Veuillez utiliser « apt-get autoremove » pour les supprimer.
+Les paquets supplémentaires suivants seront installés : 
+  python-colorama python-distlib python-html5lib python-ndg-httpsclient
+  python-pyasn1 python-requests python-urllib3 python-wheel
+Paquets suggérés :
+  python-genshi python-socks python-ntlm
+Paquets recommandés :
+  python-dev-all
+Les NOUVEAUX paquets suivants seront installés :
+  python-colorama python-distlib python-html5lib python-ndg-httpsclient
+  python-pip python-pyasn1 python-requests python-urllib3 python-wheel
+0 mis à jour, 9 nouvellement installés, 0 à enlever et 0 non mis à jour.
+Il est nécessaire de prendre 595 ko dans les archives.
+Après cette opération, 3 074 ko d'espace disque supplémentaires seront utilisés.
+Réception de : 1 http://ftp.nc.debian.org/debian/ jessie/main python-colorama all 0.3.2-1 [20,3 kB]
+Réception de : 2 http://ftp.nc.debian.org/debian/ jessie/main python-distlib all 0.1.9-1 [113 kB]
+Réception de : 3 http://ftp.nc.debian.org/debian/ jessie/main python-html5lib all 0.999-3 [84,0 kB]
+Réception de : 4 http://ftp.nc.debian.org/debian/ jessie/main python-ndg-httpsclient all 0.3.2-1 [20,5 kB]
+Réception de : 5 http://ftp.nc.debian.org/debian-multimedia/ jessie/main python-urllib3 all 1.16-1+deb8u1 [72,3 kB]
+Réception de : 6 http://ftp.nc.debian.org/debian-multimedia/ jessie/main python-requests all 2.11.1-1+deb8u1 [73,9 kB]
+Réception de : 7 http://ftp.nc.debian.org/debian/ jessie/main python-pip all 1.5.6-5 [114 kB]
+Réception de : 8 http://ftp.nc.debian.org/debian/ jessie/main python-pyasn1 all 0.1.7-1 [49,3 kB]
+Réception de : 9 http://ftp.nc.debian.org/debian/ jessie/main python-wheel all 0.24.0-1 [47,5 kB]
+595 ko réceptionnés en 1s (458 ko/s)
+Sélection du paquet python-colorama précédemment désélectionné.
+(Lecture de la base de données... (Lecture de la base de données... 5%(Lecture de la base de données... 10%(Lecture de la base de données... 15%(Lecture de la base de données... 20%(Lecture de la base de données... 25%(Lecture de la base de données... 30%(Lecture de la base de données... 35%(Lecture de la base de données... 40%(Lecture de la base de données... 45%(Lecture de la base de données... 50%(Lecture de la base de données... 55%(Lecture de la base de données... 60%(Lecture de la base de données... 65%(Lecture de la base de données... 70%(Lecture de la base de données... 75%(Lecture de la base de données... 80%(Lecture de la base de données... 85%(Lecture de la base de données... 90%(Lecture de la base de données... 95%(Lecture de la base de données... 100%(Lecture de la base de données... 263885 fichiers et répertoires déjà installés.)
+Préparation du dépaquetage de .../python-colorama_0.3.2-1_all.deb ...
+Dépaquetage de python-colorama (0.3.2-1) ...
+Sélection du paquet python-distlib précédemment désélectionné.
+Préparation du dépaquetage de .../python-distlib_0.1.9-1_all.deb ...
+Dépaquetage de python-distlib (0.1.9-1) ...
+Sélection du paquet python-html5lib précédemment désélectionné.
+Préparation du dépaquetage de .../python-html5lib_0.999-3_all.deb ...
+Dépaquetage de python-html5lib (0.999-3) ...
+Sélection du paquet python-ndg-httpsclient précédemment désélectionné.
+Préparation du dépaquetage de .../python-ndg-httpsclient_0.3.2-1_all.deb ...
+Dépaquetage de python-ndg-httpsclient (0.3.2-1) ...
+Sélection du paquet python-urllib3 précédemment désélectionné.
+Préparation du dépaquetage de .../python-urllib3_1.16-1+deb8u1_all.deb ...
+Dépaquetage de python-urllib3 (1.16-1+deb8u1) ...
+Sélection du paquet python-requests précédemment désélectionné.
+Préparation du dépaquetage de .../python-requests_2.11.1-1+deb8u1_all.deb ...
+Dépaquetage de python-requests (2.11.1-1+deb8u1) ...
+Sélection du paquet python-pip précédemment désélectionné.
+Préparation du dépaquetage de .../python-pip_1.5.6-5_all.deb ...
+Dépaquetage de python-pip (1.5.6-5) ...
+Sélection du paquet python-pyasn1 précédemment désélectionné.
+Préparation du dépaquetage de .../python-pyasn1_0.1.7-1_all.deb ...
+Dépaquetage de python-pyasn1 (0.1.7-1) ...
+Sélection du paquet python-wheel précédemment désélectionné.
+Préparation du dépaquetage de .../python-wheel_0.24.0-1_all.deb ...
+Dépaquetage de python-wheel (0.24.0-1) ...
+Traitement des actions différées (« triggers ») pour man-db (2.7.0.2-5) ...
+Traitement des actions différées (« triggers ») pour doc-base (0.10.6) ...
+Traitement de 1 fichier de documentation ajouté…
+Paramétrage de python-colorama (0.3.2-1) ...
+Paramétrage de python-distlib (0.1.9-1) ...
+Paramétrage de python-html5lib (0.999-3) ...
+Paramétrage de python-ndg-httpsclient (0.3.2-1) ...
+Paramétrage de python-urllib3 (1.16-1+deb8u1) ...
+Paramétrage de python-requests (2.11.1-1+deb8u1) ...
+Paramétrage de python-pip (1.5.6-5) ...
+Paramétrage de python-pyasn1 (0.1.7-1) ...
+Paramétrage de python-wheel (0.24.0-1) ...
+Traitement des actions différées (« triggers ») pour python-support (1.0.15) ...
+pip 1.4.1 from /usr/local/lib/python2.7/dist-packages/pip-1.4.1-py2.7.egg (python 2.7)
+Downloading/unpacking pip from https://files.pythonhosted.org/packages/ae/e8/2340d46ecadb1692a1e455f13f75e596d4eab3d11a57446f08259dee8f02/pip-10.0.1.tar.gz#sha256=f2bd08e0cd1b06e10218feaf6fef299f473ba706582eb3bd9d52203fdbd7ee68
+  Running setup.py egg_info for package pip
+    /usr/lib/python2.7/distutils/dist.py:267: UserWarning: Unknown distribution option: 'python_requires'
+      warnings.warn(msg)
+    
+    warning: no previously-included files found matching '.coveragerc'
+    warning: no previously-included files found matching '.mailmap'
+    warning: no previously-included files found matching '.travis.yml'
+    warning: no previously-included files found matching '.landscape.yml'
+    warning: no previously-included files found matching 'src/pip/_vendor/Makefile'
+    warning: no previously-included files found matching 'tox.ini'
+    warning: no previously-included files found matching '*-requirements.txt'
+    warning: no previously-included files found matching 'appveyor.yml'
+    warning: no previously-included files found matching 'src/pip/_vendor/six'
+    warning: no previously-included files matching '*.pyi' found under directory 'src/pip/_vendor'
+    no previously-included directories found matching '.github'
+    no previously-included directories found matching '.travis'
+    no previously-included directories found matching 'docs/build'
+    no previously-included directories found matching 'news'
+    no previously-included directories found matching 'contrib'
+    no previously-included directories found matching 'tasks'
+    no previously-included directories found matching 'tests'
+Installing collected packages: pip
+  Found existing installation: pip 1.4.1
+    Uninstalling pip:
+      Successfully uninstalled pip
+  Running setup.py install for pip
+    /usr/lib/python2.7/distutils/dist.py:267: UserWarning: Unknown distribution option: 'python_requires'
+      warnings.warn(msg)
+    
+    warning: no previously-included files found matching '.coveragerc'
+    warning: no previously-included files found matching '.mailmap'
+    warning: no previously-included files found matching '.travis.yml'
+    warning: no previously-included files found matching '.landscape.yml'
+    warning: no previously-included files found matching 'src/pip/_vendor/Makefile'
+    warning: no previously-included files found matching 'tox.ini'
+    warning: no previously-included files found matching '*-requirements.txt'
+    warning: no previously-included files found matching 'appveyor.yml'
+    warning: no previously-included files found matching 'src/pip/_vendor/six'
+    warning: no previously-included files matching '*.pyi' found under directory 'src/pip/_vendor'
+    no previously-included directories found matching '.github'
+    no previously-included directories found matching '.travis'
+    no previously-included directories found matching 'docs/build'
+    no previously-included directories found matching 'news'
+    no previously-included directories found matching 'contrib'
+    no previously-included directories found matching 'tasks'
+    no previously-included directories found matching 'tests'
+    Installing pip script to /usr/local/bin
+    Installing pip2.7 script to /usr/local/bin
+    Installing pip2 script to /usr/local/bin
+Successfully installed pip
+Cleaning up...
+pip 10.0.1 from /usr/local/lib/python2.7/dist-packages/pip (python 2.7)
+Lecture des listes de paquets…
+Construction de l'arbre des dépendances…
+Lecture des informations d'état…
+libreoffice-common est déjà la plus récente version disponible.
+libreoffice-common passé en « installé manuellement ».
+libreoffice-core est déjà la plus récente version disponible.
+libreoffice-core passé en « installé manuellement ».
+python-uno est déjà la plus récente version disponible.
+Les paquets suivants ont été installés automatiquement et ne sont plus nécessaires :
+  linux-image-3.16.0-4-amd64 linux-image-3.2.0-4-amd64
+Veuillez utiliser « apt-get autoremove » pour les supprimer.
+Les NOUVEAUX paquets suivants seront installés :
+  libreoffice-script-provider-python
+0 mis à jour, 1 nouvellement installés, 0 à enlever et 0 non mis à jour.
+Il est nécessaire de prendre 74,2 ko dans les archives.
+Après cette opération, 213 ko d'espace disque supplémentaires seront utilisés.
+Réception de : 1 http://ftp.nc.debian.org/debian/ jessie/main libreoffice-script-provider-python all 1:4.3.3-2+deb8u11 [74,2 kB]
+74,2 ko réceptionnés en 0s (259 ko/s)
+Sélection du paquet libreoffice-script-provider-python précédemment désélectionné.
+(Lecture de la base de données... (Lecture de la base de données... 5%(Lecture de la base de données... 10%(Lecture de la base de données... 15%(Lecture de la base de données... 20%(Lecture de la base de données... 25%(Lecture de la base de données... 30%(Lecture de la base de données... 35%(Lecture de la base de données... 40%(Lecture de la base de données... 45%(Lecture de la base de données... 50%(Lecture de la base de données... 55%(Lecture de la base de données... 60%(Lecture de la base de données... 65%(Lecture de la base de données... 70%(Lecture de la base de données... 75%(Lecture de la base de données... 80%(Lecture de la base de données... 85%(Lecture de la base de données... 90%(Lecture de la base de données... 95%(Lecture de la base de données... 100%(Lecture de la base de données... 264331 fichiers et répertoires déjà installés.)
+Préparation du dépaquetage de .../libreoffice-script-provider-python_1%3a4.3.3-2+deb8u11_all.deb ...
+Dépaquetage de libreoffice-script-provider-python (1:4.3.3-2+deb8u11) ...
+Paramétrage de libreoffice-script-provider-python (1:4.3.3-2+deb8u11) ...
+Lecture des listes de paquets…
+Construction de l'arbre des dépendances…
+Lecture des informations d'état…
+python-lxml est déjà la plus récente version disponible.
+python-lxml passé en « installé manuellement ».
+python-cairo est déjà la plus récente version disponible.
+python-cairo passé en « installé manuellement ».
+python-setuptools est déjà la plus récente version disponible.
+Les paquets suivants ont été installés automatiquement et ne sont plus nécessaires :
+  linux-image-3.16.0-4-amd64 linux-image-3.2.0-4-amd64
+Veuillez utiliser « apt-get autoremove » pour les supprimer.
+Paquets suggérés :
+  python-genshi-doc
+Les NOUVEAUX paquets suivants seront installés :
+  python-genshi
+0 mis à jour, 1 nouvellement installés, 0 à enlever et 0 non mis à jour.
+Il est nécessaire de prendre 136 ko dans les archives.
+Après cette opération, 1 002 ko d'espace disque supplémentaires seront utilisés.
+Souhaitez-vous continuer ? [O/n] Réception de : 1 http://ftp.nc.debian.org/debian/ jessie/main python-genshi amd64 0.7-3 [136 kB]
+136 ko réceptionnés en 0s (252 ko/s)
+Sélection du paquet python-genshi précédemment désélectionné.
+(Lecture de la base de données... (Lecture de la base de données... 5%(Lecture de la base de données... 10%(Lecture de la base de données... 15%(Lecture de la base de données... 20%(Lecture de la base de données... 25%(Lecture de la base de données... 30%(Lecture de la base de données... 35%(Lecture de la base de données... 40%(Lecture de la base de données... 45%(Lecture de la base de données... 50%(Lecture de la base de données... 55%(Lecture de la base de données... 60%(Lecture de la base de données... 65%(Lecture de la base de données... 70%(Lecture de la base de données... 75%(Lecture de la base de données... 80%(Lecture de la base de données... 85%(Lecture de la base de données... 90%(Lecture de la base de données... 95%(Lecture de la base de données... 100%(Lecture de la base de données... 264340 fichiers et répertoires déjà installés.)
+Préparation du dépaquetage de .../python-genshi_0.7-3_amd64.deb ...
+Dépaquetage de python-genshi (0.7-3) ...
+Paramétrage de python-genshi (0.7-3) ...
