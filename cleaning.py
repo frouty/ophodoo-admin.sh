@@ -37,7 +37,7 @@ patterns = ['BDS[ ]Remise[ ]Chq*',
           # 'OCT[ ]Report*',
           'Single[ ]Vision*',
           'Fiche[ ]Liaison*',
-          # 'Memo[ ]de[ ]rendez[ ]vous*',
+          'Memo[ ]de[ ]rendez[ ]vous*',
           'Ordonnance[ ]IVT*',
           'Operating[ ]Room[ ]Report*',
           'Prescription[ ]OR*',
@@ -58,6 +58,8 @@ patterns = ['BDS[ ]Remise[ ]Chq*',
           'Hospit[ ]Reporting*',
           'Request[ ]Bizone*',
           # 'Fluoresceine[ ]Angiography[ ]Report',
+          'Medication[ ]Report*',
+            'Prescription_*',  
           ]
 
 
