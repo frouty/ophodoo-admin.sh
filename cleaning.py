@@ -27,6 +27,8 @@ patterns = ['BDS[ ]Remise[ ]Chq*',
           'Etat[ ]NORD*',
           'Etat[ ]SUD*',
           'FDS[ ]CAFAT[ ]MUT*',
+	  'FDS[ ]FOR*',
+	  'FDS[ ]NO*',
           'FDS[ ]TIERS[ ]PAYANT*',
           'Fiche[ ]Liaison*'
           'Medication[ ]Report*',
@@ -63,7 +65,7 @@ patterns = ['BDS[ ]Remise[ ]Chq*',
           ]
 
 
-WORKING_DIR = os.path.expanduser('~') + '/SEPT17'
+WORKING_DIR = os.path.expanduser('~') + '/MAI19'
 
 logger.info('le working dir is: %s', WORKING_DIR)
 
