@@ -4,7 +4,8 @@
 # where all the odt attachment are saved with ODDO client.
 # how to use it
 # cd oph_admin.sh
-# ./cleaning.py
+# ./cleaning.py ne marche pas
+# python cleaning.py
 # comme cela ça ne marche pas mais ca marche dans eclipse: run / run as / python run...
 
 
@@ -27,8 +28,8 @@ patterns = ['BDS[ ]Remise[ ]Chq*',
           'Etat[ ]NORD*',
           'Etat[ ]SUD*',
           'FDS[ ]CAFAT[ ]MUT*',
-	  'FDS[ ]FOR*',
-	  'FDS[ ]NO*',
+          'FDS[ ]FOR*',
+          'FDS[ ]NO*',
           'FDS[ ]TIERS[ ]PAYANT*',
           'Fiche[ ]Liaison*'
           'Medication[ ]Report*',
@@ -61,7 +62,11 @@ patterns = ['BDS[ ]Remise[ ]Chq*',
           'Request[ ]Bizone*',
           # 'Fluoresceine[ ]Angiography[ ]Report',
           'Medication[ ]Report*',
-            'Prescription_*',  
+          'Prescription_*',
+          '*\.(([pP][dD][fF])|([jJ][pP][gG]))',
+          # '*.jpg',
+          # '*.pdf',
+          'Ophthalmology[ ]Prescription*',
           ]
 
 
