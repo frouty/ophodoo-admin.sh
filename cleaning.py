@@ -5,7 +5,8 @@
 # delete files older than tree months : (3*30)*24*60*60
 # how to use it
 # cd oph_admin.sh
-# ./cleaning.py
+# ./cleaning.py ne marche pas
+# python cleaning.py
 # comme cela ça ne marche pas mais ca marche dans eclipse: run / run as / python run...
 
 
@@ -69,8 +70,7 @@ patterns = ['Prescription_*',
               'Request[ ]Bizone*',
               # 'Fluoresceine[ ]Angiography[ ]Report',
               'Medication[ ]Report*',
-          ]
-
+              ]
 
 WORKING_DIR = os.path.expanduser('~') + "/" + sys.argv[1]
 
@@ -86,7 +86,5 @@ for pattern in patterns:
         if os.stat(pathfile).st_ctime > TREEMONTHAGO:
             logger.info("pathfile to be removed : %s", pathfile)
             os.remove(pathfile)
-        
-        
-    
-    #[os.remove(x) for x in glob.glob(FILE_PATTERN)]
+
+#[os.remove(x) for x in glob.glob(FILE_PATTERN)]
