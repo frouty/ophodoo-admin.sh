@@ -2,6 +2,7 @@
 ##############################################################################
 # Script to clean a directory
 # where all the odt attachment are saved with ODDO client.
+# delete files older than tree months : (3*30)*24*60*60
 # how to use it
 # cd oph_admin.sh
 # ./cleaning.py
@@ -11,66 +12,81 @@
 #
 ##############################################################################
 
-import os, glob, logging
+import os, glob, logging, sys, time
 
 logging.basicConfig(level = logging.INFO)
 logger = logging.getLogger(__name__)
 
+if len(sys.argv) != 2:
+    print( "usage", sys.argv[0], "<dir>")
+    sys.exit(1)
+
+# tree month ago
+now = time.time()
+TREEMONTHAGO = now -90*24*60*60
+
 # those patterns should match the name in ODOO report
-patterns = ['BDS[ ]Remise[ ]Chq*',
-          'Appointment[ ]Memo*',
-          'Biology[ ]Prescription[ ]Report*',
-          'Certificat*',
-          'Cardio[ ]Reporting*',
-          # 'Diabetic[ ]Reporting*',
-          'Etat[ ]LM*',
-          'Etat[ ]NORD*',
-          'Etat[ ]SUD*',
-          'FDS[ ]CAFAT[ ]MUT*',
-          'FDS[ ]TIERS[ ]PAYANT*',
-          'Fiche[ ]Liaison*'
-          'Medication[ ]Report*',
-          'Medication*.odt',
-          'Memo*',
-          'Multifocal[ ]and[ ]Sunglasses*',
-          'Multifocal[ ]and[ ]Reading*',
-          # 'OCT[ ]Report*',
-          'Single[ ]Vision*',
-          'Fiche[ ]Liaison*',
-          'Memo[ ]de[ ]rendez[ ]vous*',
-          'Ordonnance[ ]IVT*',
-          'Operating[ ]Room[ ]Report*',
-          'Prescription[ ]OR*',
-          'BDX[ ]Remise[ ]Chq*',
-          'Medication[ ]Report*',
-          # 'Plain[ ]Report[ ]Small[ ]Font*',
-          'PKE[ ]ICP[ ]Report*',
-          'Precription[ ]OR*',
-          'Near[ ]Vision[ ]Glasses*',
-          'Planning[ ]Notification*',
-          'PresOR_*',
-          'Reading[ ]Glasses*',
-          'Radiology*',
-          'Reading*',
-          'Single*',
-          'Check[ ]List[ ]Block[ ]Agenda*',
-          'Bloc[ ]Agenda[ ]Report*',
-          'Hospit[ ]Reporting*',
-          'Request[ ]Bizone*',
-          # 'Fluoresceine[ ]Angiography[ ]Report',
-          'Medication[ ]Report*',
-            'Prescription_*',  
+patterns = ['Prescription_*',
+            'BDS[ ]Remise[ ]Chq*',
+            'Appointment[ ]Memo*',
+            'Biology[ ]Prescription[ ]Report*',
+            'Certificat*',
+            'Cardio[ ]Reporting*',
+            # 'Diabetic[ ]Reporting*',
+            'Etat[ ]LM*',
+            'Etat[ ]NORD*',
+            'Etat[ ]SUD*',
+            'FDS[ ]CAFAT[ ]MUT*',
+            'FDS[ ]TIERS[ ]PAYANT*',
+            'Fiche[ ]Liaison*'
+            'Medication[ ]Report*',
+              'Medication*.odt',
+              'Memo*',
+              'Multifocal[ ]and[ ]Sunglasses*',
+              'Multifocal[ ]and[ ]Reading*',
+              # 'OCT[ ]Report*',
+              'Single[ ]Vision*',
+              'Fiche[ ]Liaison*',
+              'Memo[ ]de[ ]rendez[ ]vous*',
+              'Ordonnance[ ]IVT*',
+              'Operating[ ]Room[ ]Report*',
+              'Prescription[ ]OR*',
+              'BDX[ ]Remise[ ]Chq*',
+              'Medication[ ]Report*',
+              # 'Plain[ ]Report[ ]Small[ ]Font*',
+              'PKE[ ]ICP[ ]Report*',
+              'Precription[ ]OR*',
+              'Near[ ]Vision[ ]Glasses*',
+              'Planning[ ]Notification*',
+              'PresOR_*',
+              'Reading[ ]Glasses*',
+              'Radiology*',
+              'Reading*',
+              'Single*',
+              'Check[ ]List[ ]Block[ ]Agenda*',
+              'Bloc[ ]Agenda[ ]Report*',
+              'Hospit[ ]Reporting*',
+              'Request[ ]Bizone*',
+              # 'Fluoresceine[ ]Angiography[ ]Report',
+              'Medication[ ]Report*',
           ]
 
 
-WORKING_DIR = os.path.expanduser('~') + '/SEPT17'
+WORKING_DIR = os.path.expanduser('~') + "/" + sys.argv[1]
 
-logger.info('le working dir is: %s', WORKING_DIR)
+logger.info('working dir is: %s', WORKING_DIR)
 
 for pattern in patterns:
     logger.info('pattern is: %s', pattern)
     FILE_PATTERN = WORKING_DIR + '/' + pattern
-    logger.info('File pattern is: %s', FILE_PATTERN)
-    for file in glob.glob(FILE_PATTERN):
-        logger.info('file to be deleted is : %s', file)
-    [os.remove(x) for x in glob.glob(FILE_PATTERN)]
+    logger.info('File path pattern is: %s', FILE_PATTERN)
+    
+    for pathfile in glob.glob(FILE_PATTERN):
+        logger.info('pathfile: %s', pathfile)
+        if os.stat(pathfile).st_ctime > TREEMONTHAGO:
+            logger.info("pathfile to be removed : %s", pathfile)
+            os.remove(pathfile)
+        
+        
+    
+    #[os.remove(x) for x in glob.glob(FILE_PATTERN)]
