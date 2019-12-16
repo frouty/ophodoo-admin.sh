@@ -243,3 +243,6 @@ udpadte-rc.d <daemon> disbable|enable
 ## database manager
 il est déconseillé d'utiliser le database manager en production. 
 ### comment faire pour s'en débarraser.
+
+# comment rechercher un pattern dans plusieurs fichiers ODT?
+`for file in *.odt; do     unzip -c "$file" | grep -qi PATTERNCOMMEONVEUT && echo "$file"; done`
